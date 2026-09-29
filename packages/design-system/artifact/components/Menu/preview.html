@@ -1,0 +1,19 @@
+<!-- @dsCard group="Filtres" height=260 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Menu — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { style: { padding: '24px', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' } },
+      h(L.FilterButton, { label: 'Type', value: 'Video', open: true }),
+      h(L.Menu, { label: 'Filter by type', items: [
+        { label: 'Video', icon: 'video', checked: true, count: 14 },
+        { label: 'X post', icon: 'post', count: 9 },
+        { label: 'Article', icon: 'article', count: 23 },
+        { label: 'Link', icon: 'link', count: 6 }] })));
+</script>
+</body>
+</html>

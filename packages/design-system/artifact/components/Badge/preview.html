@@ -1,0 +1,17 @@
+<!-- @dsCard group="Statut" height=72 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Badge — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-row' },
+      h(L.Badge, null, 'Google'),
+      h(L.Badge, { tone: 'coral' }, 'Not verified'),
+      h(L.Badge, { tone: 'sun' }, '12 to read'),
+      h(L.Badge, { tone: 'mint' }, 'Archived')));
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!-- @dsCard group="Fondations" height=96 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Wordmark — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-row', style: { alignItems: 'baseline', gap: '40px' } },
+      h(L.Wordmark, null), h(L.Wordmark, { size: 'lg' }), h(L.Wordmark, { size: 'xl' })));
+</script>
+</body>
+</html>

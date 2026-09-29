@@ -1,0 +1,19 @@
+<!-- @dsCard group="Navigation" height=300 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>NavItem — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('nav', { 'aria-label': 'Library', style: { width: '248px', padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '2px', boxSizing: 'border-box' } },
+      h(L.NavItem, { icon: 'bookmark', label: 'To read', count: 12, countTone: 'sun', current: true, href: '#' }),
+      h(L.NavItem, { icon: 'archive', label: 'Archive', href: '#' }),
+      h('p', { style: { margin: '16px 12px 6px', fontSize: '12px', fontWeight: 500, color: 'var(--ink-muted)' } }, 'Collections'),
+      h(L.NavItem, { dot: 'coral', label: 'Design', count: 4, href: '#' }),
+      h(L.NavItem, { dot: 'sun', label: 'Urbanism', count: 2, href: '#' }),
+      h(L.NavItem, { dot: 'mint', label: 'Tech', count: 1, href: '#' })));
+</script>
+</body>
+</html>

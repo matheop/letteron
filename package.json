@@ -1,0 +1,20 @@
+{
+  "name": "letteron",
+  "private": true,
+  "version": "0.0.0",
+  "description": "LetterOn — tout ce que tu veux lire, au même endroit.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "tokens": "npm run build -w @letteron/design-system",
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  }
+}

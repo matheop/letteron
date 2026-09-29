@@ -1,0 +1,16 @@
+{
+  "name": "@letteron/design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design system LetterOn : tokens (clair/sombre) et composants.",
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./artifact/tokens.json",
+    "./legacy/bundle.css": "./artifact/components/bundle.css"
+  },
+  "scripts": {
+    "build": "node scripts/build-tokens.mjs",
+    "check": "node scripts/build-tokens.mjs --check"
+  }
+}

@@ -1,0 +1,15 @@
+<!-- @dsCard group="Retours" height=96 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Toast — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-row' },
+      h(L.Toast, { title: 'Saved', actionLabel: 'OK' }, 'At the top of your reading list.'),
+      h(L.Toast, { title: 'Archived', icon: 'archive', actionLabel: 'Undo' })));
+</script>
+</body>
+</html>

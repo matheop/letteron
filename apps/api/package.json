@@ -1,0 +1,6 @@
+{
+  "name": "@letteron/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "API LetterOn : auth, capture, détection du type, métadonnées."
+}

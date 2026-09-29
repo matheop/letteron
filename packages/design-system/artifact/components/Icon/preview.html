@@ -1,0 +1,13 @@
+<!-- @dsCard group="Fondations" height=200 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Icon — preview</title><style>.i{display:grid;grid-template-columns:repeat(8,1fr);gap:16px 8px;padding:24px}.i div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:var(--ink-muted)}.i svg{color:var(--ink)}</style></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'i' }, L.iconNames.map(function (n) { return h('div', { key: n }, h(L.Icon, { name: n, size: 22 }), n); })));
+</script>
+</body>
+</html>

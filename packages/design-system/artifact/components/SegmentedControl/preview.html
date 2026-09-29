@@ -1,0 +1,19 @@
+<!-- @dsCard group="Filtres" height=88 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SegmentedControl — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  function Demo() {
+    var v = React.useState('list'), view = v[0], setView = v[1];
+    var t = React.useState('system'), theme = t[0], setTheme = t[1];
+    return h('div', { className: 'lo-row' },
+      h(L.SegmentedControl, { label: 'View', iconOnly: true, value: view, onChange: setView, options: [{ value: 'list', label: 'List', icon: 'list' }, { value: 'grid', label: 'Grid', icon: 'grid' }] }),
+      h(L.SegmentedControl, { label: 'Theme', value: theme, onChange: setTheme, options: [{ value: 'light', label: 'Light', icon: 'sun' }, { value: 'dark', label: 'Dark', icon: 'moon' }, { value: 'system', label: 'System', icon: 'monitor' }] }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
+</body>
+</html>

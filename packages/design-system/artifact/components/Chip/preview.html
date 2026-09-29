@@ -1,0 +1,23 @@
+<!-- @dsCard group="Filtres" height=96 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Chip — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  function Demo() {
+    var s = React.useState({ video: true, article: false, post: false }), on = s[0], set = s[1];
+    function t(k) { return function () { var n = Object.assign({}, on); n[k] = !n[k]; set(n); }; }
+    return h('div', { className: 'lo-row', style: { gap: '8px' } },
+      h(L.Chip, { selected: on.video, count: 14, onClick: t('video') }, 'Videos'),
+      h(L.Chip, { selected: on.article, count: 23, onClick: t('article') }, 'Articles'),
+      h(L.Chip, { selected: on.post, count: 9, onClick: t('post') }, 'X posts'),
+      h(L.Chip, { onRemove: function () {} }, 'Design'),
+      h(L.Chip, { onRemove: function () {} }, '#urbanism'),
+      h(L.Button, { variant: 'ghost', size: 'sm' }, 'Clear all'));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
+</body>
+</html>

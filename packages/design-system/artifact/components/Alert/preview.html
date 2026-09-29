@@ -1,0 +1,16 @@
+<!-- @dsCard group="Retours" height=340 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Alert — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-stack' },
+      h(L.Alert, { tone: 'error', title: 'Wrong email or password.' }, 'Check them and try again.'),
+      h(L.Alert, { tone: 'info', title: "Your email isn't verified yet." }, 'Click the link we emailed you to activate your account.', h('div', { style: { marginTop: '8px' } }, h(L.Button, { size: 'sm' }, 'Resend email'))),
+      h(L.Alert, { tone: 'success', title: 'Password updated.' }, 'You can sign in with it now.')));
+</script>
+</body>
+</html>

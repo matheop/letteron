@@ -1,0 +1,6 @@
+{
+  "name": "@letteron/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Web app LetterOn (desktop + responsive mobile, D-11)."
+}

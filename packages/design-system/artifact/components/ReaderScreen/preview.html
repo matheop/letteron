@@ -1,0 +1,76 @@
+<!-- @dsCard group="Écrans" height=900 page subtitle="Article reading view, on mobile" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reader — sample screen</title>
+<style>
+  body { background: var(--line); }
+  .stage { display: flex; justify-content: center; padding: var(--space-6) 0; }
+  .phone { width: 390px; height: 844px; background: var(--paper); border-radius: 44px; overflow: hidden; position: relative; display: flex; flex-direction: column; box-shadow: var(--shadow-float); }
+  .top { height: 64px; flex: none; display: flex; align-items: center; gap: var(--space-2); padding: 0 var(--space-4); border-bottom: 1px solid var(--line); margin-top: 24px; }
+  .grow { flex: 1; }
+  .progress { position: absolute; left: 0; top: 87px; height: 3px; width: 34%; background: var(--coral); border-radius: 0 var(--radius-full) var(--radius-full) 0; }
+  .scroll { flex: 1; overflow-y: auto; padding: var(--space-6) var(--space-6) 170px; }
+  .kicker { display: flex; flex-direction: column; gap: 4px; }
+  .meta { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+  .title { margin: 12px 0 0; font-family: var(--font-serif); font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em; }
+  .chapo { margin: var(--space-4) 0 0; font-family: var(--font-serif); font-style: italic; font-size: 18px; line-height: 28px; color: var(--ink-muted); }
+  .hero { margin: var(--space-6) calc(-1 * var(--space-2)) 0; height: 196px; border-radius: var(--radius-lg); background: var(--sun); position: relative; overflow: hidden; }
+  .hero i { position: absolute; display: block; }
+  .hero .rail { left: -10%; right: -10%; height: 16px; top: 140px; background: var(--on-sun); border-radius: var(--radius-full); }
+  .hero .tram { width: 150px; height: 64px; left: 120px; top: 70px; background: var(--coral); border-radius: var(--radius-lg); }
+  .hero .disc { width: 72px; height: 72px; right: 28px; top: 20px; background: var(--coral); border-radius: var(--radius-full); }
+  .body p { font-family: var(--font-serif); font-size: 18px; line-height: 31px; margin: var(--space-6) 0 0; }
+  .body h2 { font-family: var(--font-serif); font-size: 20px; line-height: 28px; font-weight: 700; margin: var(--space-10) 0 0; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-float); padding: var(--space-4) var(--space-6) 30px; display: flex; flex-direction: column; gap: 12px; }
+  .chips { display: flex; gap: var(--space-2); overflow-x: auto; scrollbar-width: none; }
+  .actions { display: flex; gap: var(--space-2); align-items: center; }
+  .actions > .lo-btn-primary { flex: 1; }
+  .done { display: flex; align-items: center; gap: var(--space-2); justify-content: center; height: 44px; border-radius: var(--radius-full); background: var(--mint-soft); color: var(--mint); font-size: 14px; font-weight: 700; flex: 1; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement, useState = React.useState;
+  function Screen() {
+    var a = useState(false), archived = a[0], setArchived = a[1];
+    var c = useState(false), confirm = c[0], setConfirm = c[1];
+    return h('div', { className: 'stage' },
+      h('div', { className: 'phone' },
+        h('div', { className: 'top' },
+          h(L.IconButton, { icon: 'arrow-left', label: 'Back' }),
+          h('span', { className: 'grow' }),
+          h(L.Button, { variant: 'ghost', size: 'sm', icon: 'external' }, 'Read on site'),
+          h(L.IconButton, { icon: 'trash', label: 'Delete', onClick: function () { setConfirm(true); } })),
+        h('span', { className: 'progress', 'aria-hidden': 'true' }),
+        h('div', { className: 'scroll' },
+          h('div', { className: 'kicker' },
+            h(L.TypeTag, { type: 'article' }),
+            h('span', { className: 'meta' }, ['urban-review.com', L.formatReadingTime(8), L.formatAddedAt('2026-09-27T08:00:00Z', '2026-09-29T12:00:00Z')].join(' · '))),
+          h('h1', { className: 'title' }, 'Why cities are rediscovering trams'),
+          h('p', { className: 'chapo' }, 'Cheaper than a metro, roomier than a bus: the tram is back at the centre of city transport plans.'),
+          h('div', { className: 'hero', 'aria-hidden': 'true' }, h('i', { className: 'disc' }), h('i', { className: 'tram' }), h('i', { className: 'rail' })),
+          h('div', { className: 'body' },
+            h('p', null, 'In Besançon, Tours or Brest, the story repeats itself: a tram line, a few years of roadworks, then ridership that beats the forecasts in the first year.'),
+            h('p', null, 'The mode nearly disappeared. In the 1950s, most networks were torn up in favour of cars and buses.'),
+            h('h2', null, 'A comeback through the city centre'),
+            h('p', null, 'What changed is how public space is used. A tram is also a chance to redo an entire avenue, from façade to façade.'))),
+        h('div', { className: 'sheet' },
+          h('div', { className: 'chips' },
+            h(L.Chip, { icon: 'folder', selected: true }, 'Urbanism'),
+            h(L.Chip, null, '#urbanism'),
+            h(L.Chip, null, '#transport'),
+            h(L.Chip, { icon: 'plus' }, 'Tag')),
+          h('div', { className: 'actions' },
+            archived
+              ? h('span', { className: 'done', role: 'status' }, h(L.Icon, { name: 'check' }), 'Archived')
+              : h(L.Button, { variant: 'primary', icon: 'archive', onClick: function () { setArchived(true); } }, 'Done, archive'),
+            archived ? h(L.Button, { onClick: function () { setArchived(false); } }, 'Undo') : null)),
+        confirm ? h(L.Dialog, { icon: 'trash', tone: 'danger', title: 'Delete this bookmark?', description: "It's gone for good: there's no trash.", confirmLabel: 'Delete', cancelLabel: 'Keep', onCancel: function () { setConfirm(false); }, onConfirm: function () { setConfirm(false); } }) : null));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Screen));
+</script>
+</body>
+</html>

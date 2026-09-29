@@ -1,0 +1,20 @@
+<!-- @dsCard group="Contenu" height=620 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>BookmarkCard — preview</title><style>.g{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px}.l{display:flex;flex-direction:column;gap:8px;padding:0 24px 24px;max-width:720px}</style></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement, now = '2026-09-29T12:00:00Z', noop = function () {};
+  var items = [
+    { type: 'video', title: 'How Figma rethought its variables', source: 'Config', duration: '18:42', addedAt: '2026-09-29T09:10:00Z', collection: 'Design', tags: ['figma'] },
+    { type: 'article', title: 'Why cities are rediscovering trams', source: 'urban-review.com', readingTime: 8, addedAt: '2026-09-27T08:00:00Z', excerpt: 'Calmer streets, reopened lines: light rail is back at the heart of the debate.', collection: 'Urbanism', tags: ['mobility'] },
+    { type: 'post', title: 'Ten years of side projects: what I learned', source: '@lea.makes', addedAt: '2026-09-12T18:00:00Z', excerpt: 'A thread on what worked, what flopped, and why I keep going.', tags: ['indie'] },
+    { type: 'link', title: 'Readability.js — extract the main content of a page', source: 'github.com', addedAt: '2025-11-03T10:00:00Z', archived: true }
+  ];
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { className: 'g' }, items.map(function (i, n) { return h(L.BookmarkCard, Object.assign({ key: i.title, now: now, href: '#', onArchive: noop, onDelete: noop, showActions: n === 1 }, i)); })),
+    h('div', { className: 'l' }, items.slice(0, 3).map(function (i, n) { return h(L.BookmarkCard, Object.assign({ key: i.title, now: now, layout: 'list', href: '#', onArchive: noop, onDelete: noop, showActions: n === 0 }, i)); }))));
+</script>
+</body>
+</html>

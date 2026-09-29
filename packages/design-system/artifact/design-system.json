@@ -1,0 +1,33 @@
+{
+  "v": 3,
+  "assetGroups": {},
+  "blobs": {},
+  "createdOnFiles": {
+    "at": "2026-09-27T21:17:10Z",
+    "v": 1
+  },
+  "docs": {
+    "sections": []
+  },
+  "groups": [],
+  "lastChange": {
+    "by": "Mathéo",
+    "at": "2026-09-29T20:29:30Z",
+    "via": "Claude (Cowork)",
+    "note": "UI en anglais, vocabulaire « bookmark ». ItemCard devient BookmarkCard : métadonnées composées par le composant (source · durée ou temps de lecture · date d'ajout), extrait séparé, actions au survol. Nouveaux composants issus des maquettes : Icon, Wordmark, IconButton, SearchField, FilterButton, Menu, SegmentedControl, NavItem, Alert, Toast, Dialog, EmptyState, Skeleton, Kbd. Nouveau token scrim."
+  },
+  "layout": "files",
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18"
+    },
+    {
+      "name": "react-dom",
+      "version": "18"
+    }
+  ],
+  "namespace": "LetterOn",
+  "sections": {},
+  "title": "LetterOn"
+}

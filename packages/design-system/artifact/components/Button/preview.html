@@ -1,0 +1,19 @@
+<!-- @dsCard group="Actions" height=96 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Button — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-row' },
+      h(L.Button, { variant: 'primary', icon: 'archive' }, 'Archive'),
+      h(L.Button, null, 'Move to collection'),
+      h(L.Button, { variant: 'ghost', icon: 'external' }, 'Read on site'),
+      h(L.Button, { variant: 'danger', icon: 'trash' }, 'Delete my account'),
+      h(L.Button, { variant: 'primary', size: 'sm' }, 'Save'),
+      h(L.Button, { disabled: true }, 'Unavailable')));
+</script>
+</body>
+</html>

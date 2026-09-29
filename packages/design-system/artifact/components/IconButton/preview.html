@@ -1,0 +1,17 @@
+<!-- @dsCard group="Actions" height=88 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>IconButton — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-row' },
+      h(L.IconButton, { icon: 'menu', label: 'Open menu' }),
+      h(L.IconButton, { icon: 'arrow-left', label: 'Back' }),
+      h(L.IconButton, { icon: 'archive', label: 'Archive', variant: 'secondary', size: 'sm' }),
+      h(L.IconButton, { icon: 'trash', label: 'Delete', variant: 'secondary', size: 'sm', tone: 'danger' })));
+</script>
+</body>
+</html>

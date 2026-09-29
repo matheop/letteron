@@ -1,0 +1,105 @@
+<!-- @dsCard group="Écrans" width=1280 height=820 page subtitle="Reading list, grid view, combined filters" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Library — sample screen</title>
+<style>
+  .app { display: flex; width: 1280px; height: 820px; background: var(--paper); overflow: hidden; }
+  .side { width: 248px; flex: none; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 24px; padding: var(--space-6) var(--space-4); box-sizing: border-box; }
+  .side .brand { padding: 0 12px; }
+  .nav { display: flex; flex-direction: column; gap: 2px; }
+  .label { margin: 0 12px 6px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px; }
+  .main { flex: 1; min-width: 0; display: flex; flex-direction: column; position: relative; }
+  .head { display: flex; align-items: center; gap: 12px; padding: var(--space-6) var(--space-10) 0; }
+  .h1 { margin: 0; font-family: var(--font-serif); font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em; }
+  .grow { flex: 1; }
+  .bar { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4) var(--space-10) 0; }
+  .applied { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4) var(--space-10) 0; min-height: 36px; }
+  .count { font-size: 14px; font-weight: 600; margin-right: var(--space-2); }
+  .content { flex: 1; overflow: auto; padding: var(--space-6) var(--space-10) var(--space-10); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .list { display: flex; flex-direction: column; gap: var(--space-2); max-width: 880px; }
+  .toast { position: absolute; right: var(--space-6); bottom: var(--space-6); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement, useState = React.useState;
+  var NOW = '2026-09-29T12:00:00Z', noop = function () {};
+  var BOOKMARKS = [
+    { type: 'video', title: 'How Figma rethought its variables', source: 'Config', duration: '18:42', addedAt: '2026-09-29T11:40:00Z', collection: 'Design', tags: ['figma'] },
+    { type: 'article', title: 'Why cities are rediscovering trams', source: 'urban-review.com', readingTime: 8, addedAt: '2026-09-29T08:05:00Z', excerpt: 'Calmer streets, reopened lines: light rail is back at the heart of the debate.', collection: 'Urbanism', tags: ['urbanism', 'transport'] },
+    { type: 'post', title: 'Ten years of side projects: what I learned', source: '@lea.makes', addedAt: '2026-09-28T19:00:00Z', excerpt: 'A thread on what worked, what flopped, and why I keep going.', tags: ['indie'] },
+    { type: 'video', title: 'Neapolitan pizza dough: the 48-hour method', source: 'Vito', duration: '12:05', addedAt: '2026-09-27T10:00:00Z', collection: 'Cooking', tags: ['recipe'] },
+    { type: 'article', title: 'Serif typefaces are back in interfaces', source: 'type-notes.com', readingTime: 11, addedAt: '2026-09-25T10:00:00Z', excerpt: 'Long kept for print, serifs are finding their way back onto our screens.', collection: 'Design', tags: ['type'] },
+    { type: 'link', title: 'Readability.js — extract the main content of a page', source: 'github.com', addedAt: '2026-09-21T10:00:00Z', collection: 'Tech', tags: ['parsing'] },
+    { type: 'article', title: 'Living car-free in Lyon: one year on', source: 'city-journal.net', readingTime: 6, addedAt: '2026-09-18T10:00:00Z', excerpt: 'Bike, tram and car sharing: the balance sheet of a year without a wheel.', collection: 'Urbanism', tags: ['urbanism'] },
+    { type: 'post', title: 'Five Chrome settings every developer should know', source: '@nora_dev', addedAt: '2026-09-15T10:00:00Z', excerpt: 'The third one saves me an hour a week.', collection: 'Tech', tags: ['chrome'] },
+    { type: 'video', title: 'Manifest V3 explained in 20 minutes', source: 'Chrome for Developers', duration: '21:30', addedAt: '2026-09-10T10:00:00Z', collection: 'Tech', tags: ['chrome', 'extension'] },
+    { type: 'link', title: 'A map of French bike lanes', source: 'geovelo.app', addedAt: '2026-09-02T10:00:00Z' },
+    { type: 'article', title: 'What slowness does to our attention', source: 'slow-read.org', readingTime: 14, addedAt: '2026-08-28T10:00:00Z', excerpt: 'Why reading slowly is becoming a luxury, and how to get back to it.', tags: ['reading'] },
+    { type: 'video', title: 'A tour of the most beautiful metros in the world', source: 'Arte', duration: '9:48', addedAt: '2025-12-12T10:00:00Z', collection: 'Urbanism', tags: ['transport'] }
+  ];
+  var TYPE_LABELS = { video: 'Video', post: 'X post', article: 'Article', link: 'Link' };
+  var COLLS = [['Design', 'coral', 12], ['Urbanism', 'sun', 8], ['Tech', 'mint', 15], ['Cooking', 'ink', 4]];
+
+  function Screen() {
+    var v = useState('grid'), view = v[0], setView = v[1];
+    var t = useState('video'), type = t[0], setType = t[1];
+    var g = useState(null), tag = g[0], setTag = g[1];
+    var q = useState(''), query = q[0], setQuery = q[1];
+    var ts = useState(true), toast = ts[0], setToast = ts[1];
+    var shown = BOOKMARKS.filter(function (b) {
+      return (!type || b.type === type) && (!tag || (b.tags || []).indexOf(tag) >= 0) &&
+        (!query || (b.title + ' ' + (b.tags || []).join(' ')).toLowerCase().indexOf(query.toLowerCase()) >= 0);
+    });
+    var anyFilter = type || tag || query;
+    return h('div', { className: 'app' },
+      h('aside', { className: 'side' },
+        h('div', { className: 'brand' }, h(L.Wordmark, null)),
+        h('nav', { className: 'nav', 'aria-label': 'Library' },
+          h(L.NavItem, { icon: 'bookmark', label: 'To read', count: 32, countTone: 'sun', current: true, href: '#' }),
+          h(L.NavItem, { icon: 'archive', label: 'Archive', count: 118, href: '#' })),
+        h('div', { className: 'nav' },
+          h('p', { className: 'label' }, 'Collections'),
+          COLLS.map(function (c) { return h(L.NavItem, { key: c[0], dot: c[1], label: c[0], count: c[2], href: '#' }); }),
+          h('div', { style: { padding: '4px 0 0' } }, h(L.Button, { variant: 'ghost', size: 'sm', icon: 'plus' }, 'New collection'))),
+        h('div', null,
+          h('p', { className: 'label' }, 'Tags'),
+          h('div', { className: 'tags' }, ['urbanism', 'chrome', 'type', 'recipe'].map(function (x) {
+            return h(L.Chip, { key: x, selected: tag === x, onClick: function () { setTag(tag === x ? null : x); } }, '#' + x);
+          })))),
+      h('main', { className: 'main' },
+        h('div', { className: 'head' },
+          h('h1', { className: 'h1' }, 'To read'),
+          h(L.Badge, { tone: 'sun' }, '32 to read'),
+          h('span', { className: 'grow' }),
+          h(L.Avatar, { name: 'Camille Durand', tone: 'coral' })),
+        h('div', { className: 'bar' },
+          h(L.SearchField, { value: query, onChange: function (e) { setQuery(e.target.value); }, placeholder: 'Search titles and tags', style: { width: '300px' } }),
+          h(L.FilterButton, { label: 'Type', value: type ? TYPE_LABELS[type] : undefined, onClick: function () { setType(type === 'video' ? 'article' : type === 'article' ? null : 'video'); } }),
+          h(L.FilterButton, { label: 'Collection' }),
+          h(L.FilterButton, { label: 'Tag', value: tag ? '#' + tag : undefined }),
+          h(L.FilterButton, { label: 'Status' }),
+          h('span', { className: 'grow' }),
+          h(L.SegmentedControl, { label: 'View', iconOnly: true, value: view, onChange: setView, options: [{ value: 'list', label: 'List', icon: 'list' }, { value: 'grid', label: 'Grid', icon: 'grid' }] })),
+        anyFilter ? h('div', { className: 'applied' },
+          h('span', { className: 'count' }, shown.length + (shown.length === 1 ? ' result' : ' results')),
+          query ? h(L.Chip, { onRemove: function () { setQuery(''); } }, '“' + query + '”') : null,
+          type ? h(L.Chip, { onRemove: function () { setType(null); } }, TYPE_LABELS[type]) : null,
+          tag ? h(L.Chip, { onRemove: function () { setTag(null); } }, '#' + tag) : null,
+          h(L.Button, { variant: 'ghost', size: 'sm', onClick: function () { setType(null); setTag(null); setQuery(''); } }, 'Clear all')) : null,
+        h('div', { className: 'content' },
+          shown.length === 0
+            ? h(L.EmptyState, { icon: 'search', title: 'Nothing matches', description: 'Your bookmarks are still here. Try another word or remove a filter.' })
+            : h('div', { className: view === 'grid' ? 'grid' : 'list' },
+                shown.map(function (b) { return h(L.BookmarkCard, Object.assign({ key: b.title, layout: view, now: NOW, href: '#', onArchive: noop, onDelete: noop }, b)); }))),
+        toast ? h('div', { className: 'toast' }, h(L.Toast, { title: 'Saved', actionLabel: 'OK', onAction: function () { setToast(false); } }, 'At the top of your reading list.')) : null));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Screen));
+</script>
+</body>
+</html>

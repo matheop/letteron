@@ -1,0 +1,15 @@
+<!-- @dsCard group="Formulaires" height=88 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>SearchField — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-row' },
+      h(L.SearchField, { placeholder: 'Search titles and tags', style: { width: '320px' } }),
+      h(L.SearchField, { defaultValue: 'typography', style: { width: '320px' } })));
+</script>
+</body>
+</html>

@@ -29,3 +29,11 @@ Un seul côté fait foi à la fois. La bascule est notée dans `docs/README.md`.
 Fondations : Icon, Wordmark, Kbd. Actions : Button, IconButton. Formulaires : TextField, SearchField. Filtres : Chip, FilterButton, Menu, SegmentedControl. Navigation : NavItem. Contenu : BookmarkCard, TypeTag, Avatar, Badge. Retours : Alert, Toast, Dialog, EmptyState, Skeleton, SkeletonBookmark. Écrans d'exemple : LibraryScreen, ReaderScreen.
 
 Utilitaires : `formatAddedAt(date, now)` et `formatReadingTime(minutes)`, la règle d'affichage des métadonnées d'un bookmark.
+
+## Consulter le design system en local
+
+```bash
+npm run preview -w packages/design-system   # http://localhost:4173
+```
+
+Sert un catalogue en lecture seule : chaque composant (`artifact/components/*/preview.html`) est affiché avec React 18, `tokens.css` régénéré et le bundle, avec bascule clair/sombre. React est chargé depuis unpkg (connexion requise). Le dossier `artifact/` n'est jamais modifié.

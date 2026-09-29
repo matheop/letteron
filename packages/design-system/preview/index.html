@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>LetterOn — design system</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{--bg:#faf7f2;--fg:#1f1b16;--muted:#6b6459;--line:#e6dfd3;--accent:#e2553f}
+  [data-theme=dark]{--bg:#17140f;--fg:#f3eee6;--muted:#a39b8d;--line:#332d24}
+  *{box-sizing:border-box}
+  body{margin:0;display:grid;grid-template-columns:240px 1fr;height:100vh;background:var(--bg);color:var(--fg);font:14px/20px system-ui,sans-serif}
+  aside{border-right:1px solid var(--line);padding:16px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+  h1{font-size:16px;margin:0}
+  nav{display:flex;flex-direction:column;gap:2px}
+  nav a{padding:6px 10px;border-radius:8px;color:var(--fg);text-decoration:none}
+  nav a:hover{background:var(--line)} nav a[aria-current]{background:var(--accent);color:#fff}
+  button{font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--fg);cursor:pointer}
+  main{display:flex;flex-direction:column;min-width:0}
+  header{padding:12px 20px;border-bottom:1px solid var(--line);font-weight:600}
+  iframe{flex:1;border:0;width:100%}
+</style>
+</head>
+<body>
+<aside>
+  <h1>LetterOn · DS</h1>
+  <button id="theme">Theme: light</button>
+  <nav id="nav"></nav>
+</aside>
+<main><header id="title"></header><iframe id="frame" title="Component preview"></iframe></main>
+<script>
+  var theme = "light", current = null, nav = document.getElementById("nav");
+  function show(name) {
+    current = name; location.hash = name;
+    document.getElementById("title").textContent = name;
+    document.getElementById("frame").src = "/frame/" + name + "?theme=" + theme;
+    [].forEach.call(nav.children, function (a) { a.toggleAttribute("aria-current", a.textContent === name); });
+  }
+  document.getElementById("theme").onclick = function () {
+    theme = theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+    this.textContent = "Theme: " + theme;
+    if (current) show(current);
+  };
+  fetch("/api/components").then(function (r) { return r.json(); }).then(function (names) {
+    names.forEach(function (n) {
+      var a = document.createElement("a"); a.href = "#" + n; a.textContent = n;
+      a.onclick = function (e) { e.preventDefault(); show(n); }; nav.appendChild(a);
+    });
+    show(location.hash.slice(1) || "BookmarkCard");
+  });
+</script>
+</body>
+</html>

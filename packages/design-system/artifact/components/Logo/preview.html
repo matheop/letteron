@@ -1,0 +1,27 @@
+<!-- @dsCard group="Fondations" height=360 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Logo — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var L = window.LetterOn, h = React.createElement;
+  function card(bg, children, theme) { return h('div', { 'data-theme': theme, style: { background: bg, padding: '24px 28px', borderRadius: '20px', border: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ink)' } }, children); }
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'lo-stack', style: { maxWidth: 'none', gap: '16px' } },
+      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' } },
+        card('var(--paper)', h(L.Logo, { size: 48 })),
+        card('var(--paper)', h(L.Logo, { size: 48 }), 'dark'),
+        card('var(--paper)', h(L.Logo, { size: 48, tone: 'mono' })),
+        card('var(--coral-strong)', h(L.Logo, { size: 48, tone: 'reverse' }))),
+      h('div', { style: { display: 'flex', alignItems: 'flex-end', gap: '24px', padding: '8px 4px' } },
+        h(L.Logo, { variant: 'mark', size: 96 }),
+        h(L.Logo, { variant: 'app-icon', size: 96 }),
+        h(L.Logo, { variant: 'app-icon', size: 96, tone: 'dark' }),
+        h(L.Logo, { variant: 'app-icon', size: 64 }),
+        h(L.Logo, { variant: 'app-icon', size: 32 }),
+        h(L.Logo, { variant: 'app-icon', size: 16 }),
+        h(L.Logo, { variant: 'mark', size: 24 }))));
+</script>
+</body>
+</html>

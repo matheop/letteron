@@ -6,11 +6,11 @@ body { margin: 0; font-family: var(--font-sans); background: var(--paper); color
 .lo-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .lo-icon { flex: none; display: block; }
 
-/* Wordmark — until there is a logo */
-.lo-wordmark { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.01em; color: var(--ink); white-space: nowrap; }
-.lo-wordmark-md { font-size: 22px; line-height: 28px; }
-.lo-wordmark-lg { font-size: 28px; line-height: 36px; }
-.lo-wordmark-xl { font-size: 36px; line-height: 44px; }
+/* Logo — envelope + sun, liquid glass. Wordmark is its horizontal lockup. */
+.lo-logo { display: inline-flex; align-items: center; color: var(--ink); }
+.lo-logo-svg { display: block; flex: none; }
+.lo-logo-word { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--ink); white-space: nowrap; }
+.lo-logo-reverse .lo-logo-word { color: #fff; }
 
 /* Button — pills */
 .lo-btn { font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); border-radius: var(--radius-full); border: 2px solid transparent; cursor: pointer; text-decoration: none; box-sizing: border-box; white-space: nowrap; transition: transform .12s ease, background-color .12s ease; }

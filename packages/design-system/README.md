@@ -26,7 +26,7 @@ Un seul côté fait foi à la fois. La bascule est notée dans `docs/README.md`.
 
 ## Composants (artifact)
 
-Fondations : Icon, Wordmark, Kbd. Actions : Button, IconButton. Formulaires : TextField, SearchField. Filtres : Chip, FilterButton, Menu, SegmentedControl. Navigation : NavItem. Contenu : BookmarkCard, TypeTag, Avatar, Badge. Retours : Alert, Toast, Dialog, EmptyState, Skeleton, SkeletonBookmark. Écrans d'exemple : LibraryScreen, ReaderScreen.
+Fondations : Icon, Logo, Wordmark, Kbd. Logo : SVG du symbole et des icônes d'app dans `artifact/assets/Logo/`. Actions : Button, IconButton. Formulaires : TextField, SearchField. Filtres : Chip, FilterButton, Menu, SegmentedControl. Navigation : NavItem. Contenu : BookmarkCard, TypeTag, Avatar, Badge. Retours : Alert, Toast, Dialog, EmptyState, Skeleton, SkeletonBookmark. Écrans d'exemple : LibraryScreen, ReaderScreen.
 
 Utilitaires : `formatAddedAt(date, now)` et `formatReadingTime(minutes)`, la règle d'affichage des métadonnées d'un bookmark.
 

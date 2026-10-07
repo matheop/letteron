@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"LetterOn","components":[{"name":"Icon"},{"name":"Wordmark"},{"name":"Button"},{"name":"IconButton"},{"name":"TextField"},{"name":"SearchField"},{"name":"Badge"},{"name":"Chip"},{"name":"FilterButton"},{"name":"Menu"},{"name":"SegmentedControl"},{"name":"NavItem"},{"name":"Avatar"},{"name":"TypeTag"},{"name":"BookmarkCard"},{"name":"Alert"},{"name":"Toast"},{"name":"Dialog"},{"name":"EmptyState"},{"name":"Skeleton"},{"name":"SkeletonBookmark"},{"name":"Kbd"}]} */
+/* @ds-bundle: {"format":4,"namespace":"LetterOn","components":[{"name":"Icon"},{"name":"Logo"},{"name":"Wordmark"},{"name":"Button"},{"name":"IconButton"},{"name":"TextField"},{"name":"SearchField"},{"name":"Badge"},{"name":"Chip"},{"name":"FilterButton"},{"name":"Menu"},{"name":"SegmentedControl"},{"name":"NavItem"},{"name":"Avatar"},{"name":"TypeTag"},{"name":"BookmarkCard"},{"name":"Alert"},{"name":"Toast"},{"name":"Dialog"},{"name":"EmptyState"},{"name":"Skeleton"},{"name":"SkeletonBookmark"},{"name":"Kbd"}]} */
 (function () {
   var React = window.React;
   var h = React.createElement;
@@ -78,8 +78,74 @@
     return typeof x === "string" ? h(Icon, { name: x, size: size }) : x;
   }
 
+  /* ---------- Logo: an envelope and a rising sun, in liquid glass ---------- */
+  var LOGO_CORE = "<circle cx=\"48\" cy=\"27\" r=\"23\" fill=\"#ffc23d\"/><defs>\n<linearGradient id=\"{u}f\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"{tint}\" stop-opacity=\"{a1}\"/><stop offset=\"1\" stop-color=\"{tint}\" stop-opacity=\"{a2}\"/></linearGradient>\n<linearGradient id=\"{u}s\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0.95\"/><stop offset=\"0.45\" stop-color=\"#fff\" stop-opacity=\"0.08\"/><stop offset=\"0.75\" stop-color=\"#fff\" stop-opacity=\"0.12\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0.7\"/></linearGradient>\n<linearGradient id=\"{u}h\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0.5\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient>\n<filter id=\"{u}b\" x=\"-30%\" y=\"-30%\" width=\"160%\" height=\"160%\"><feGaussianBlur stdDeviation=\"4.5\"/></filter>\n<filter id=\"{u}g\" x=\"-30%\" y=\"-30%\" width=\"160%\" height=\"160%\"><feGaussianBlur stdDeviation=\"2\"/></filter>\n<filter id=\"{u}d\" x=\"-40%\" y=\"-40%\" width=\"180%\" height=\"190%\"><feGaussianBlur in=\"SourceAlpha\" stdDeviation=\"4\" result=\"b\"/><feOffset in=\"b\" dy=\"5\" result=\"o\"/><feFlood flood-color=\"#bf3a20\" flood-opacity=\"0.38\"/><feComposite in2=\"o\" operator=\"in\"/></filter>\n<clipPath id=\"{u}c\"><path d=\"M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z\"/></clipPath>\n<mask id=\"{u}m\"><rect x=\"-60\" y=\"-60\" width=\"220\" height=\"220\" fill=\"#fff\"/><path d=\"M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z\" fill=\"#000\"/></mask>\n</defs>\n<g mask=\"url(#{u}m)\"><path d=\"M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z\" fill=\"#000\" filter=\"url(#{u}d)\"/></g>\n<g clip-path=\"url(#{u}c)\"><g filter=\"url(#{u}b)\"><circle cx=\"48\" cy=\"27\" r=\"23\" fill=\"#ffc23d\"/></g></g>\n<path d=\"M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z\" fill=\"url(#{u}f)\"/>\n<g clip-path=\"url(#{u}c)\"><rect x=\"12\" y=\"36\" width=\"72\" height=\"26.400000000000002\" fill=\"url(#{u}h)\"/><path d=\"M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z\" fill=\"none\" stroke=\"#fff\" stroke-opacity=\"0.35\" stroke-width=\"5\" filter=\"url(#{u}g)\"/></g>\n<path d=\"M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z\" fill=\"none\" stroke=\"url(#{u}s)\" stroke-width=\"1.6\"/><defs><linearGradient id=\"{u}p\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0.26\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient></defs><g clip-path=\"url(#{u}c)\"><path d=\"M12 36 H84 L48 62 Z\" fill=\"url(#{u}p)\"/></g><defs><linearGradient id=\"{u}v\" gradientUnits=\"userSpaceOnUse\" gradientTransform=\"matrix(72 0 0 48 12 36)\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0.95\"/><stop offset=\"0.45\" stop-color=\"#fff\" stop-opacity=\"0.08\"/><stop offset=\"0.75\" stop-color=\"#fff\" stop-opacity=\"0.12\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0.7\"/></linearGradient></defs><g clip-path=\"url(#{u}c)\"><path d=\"M15.22 39.22 L44 59 Q48 61.5 52 59 L80.78 39.22\" fill=\"none\" stroke=\"url(#{u}v)\" stroke-width=\"1.6\" stroke-linecap=\"butt\" stroke-linejoin=\"round\"/></g>";
+  var LOGO_ENV = "M23 36 H73 A11 11 0 0 1 84 47 V73 A11 11 0 0 1 73 84 H23 A11 11 0 0 1 12 73 V47 A11 11 0 0 1 23 36 Z";
+  var LOGO_FLAP = "M15.22 39.22 L44 59 Q48 61.5 52 59 L80.78 39.22";
+  function logoGlass(u, reverse) {
+    return LOGO_CORE.split("{u}").join(u)
+      .split("{tint}").join(reverse ? "#ffffff" : "#ff6a4d")
+      .split("{a1}").join(reverse ? "0.5" : "0.9")
+      .split("{a2}").join(reverse ? "0.14" : "0.5");
+  }
+  /* Flat versions: no blur, no gradients. Used at 32px and below, and for one-colour use. */
+  function logoFlat(tone) {
+    if (tone === "mono") {
+      return '<circle cx="48" cy="27" r="23" fill="currentColor"/>' +
+        '<path d="' + LOGO_ENV + '" fill="currentColor" style="stroke: var(--paper); stroke-width: 3; paint-order: stroke"/>' +
+        '<path d="' + LOGO_FLAP + '" fill="none" style="stroke: var(--paper)" stroke-width="2.4" stroke-linejoin="round"/>';
+    }
+    var reverse = tone === "reverse" || tone === "dark";
+    var page = reverse ? "#fff8f1" : "#ff6a4d";
+    var gap = tone === "dark" ? "#17131f" : reverse ? "#ff6a4d" : "var(--paper)";
+    var line = tone === "dark" ? "#17131f" : reverse ? "#ff6a4d" : "var(--paper)";
+    if (tone === "dark") page = "#ff6a4d";
+    return '<circle cx="48" cy="27" r="23" fill="#ffc23d"/>' +
+      '<path d="' + LOGO_ENV + '" fill="' + page + '" style="stroke: ' + gap + '; stroke-width: 3.5; paint-order: stroke"/>' +
+      '<path d="' + LOGO_FLAP + '" fill="none" style="stroke: ' + line + '" stroke-width="3.2" stroke-linejoin="round"/>';
+  }
+  function logoInner(icon, tone, small, u) {
+    if (icon) {
+      var dark = tone === "dark";
+      var bg = dark
+        ? '<linearGradient id="' + u + 't" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b2338"/><stop offset="1" stop-color="#17131f"/></linearGradient>'
+        : '<linearGradient id="' + u + 't" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d5e"/><stop offset="1" stop-color="#f2502f"/></linearGradient>';
+      var tile = '<defs>' + bg + '</defs><rect width="96" height="96" rx="21" fill="url(#' + u + 't)"/>';
+      var art = small ? logoFlat(dark ? "dark" : "reverse") : logoGlass(u, !dark);
+      return tile + '<g transform="translate(48 48) scale(' + (small ? 0.86 : 0.8) + ') translate(-48 -44)">' + art + '</g>';
+    }
+    var body = tone === "mono" ? logoFlat("mono") : small ? logoFlat(tone === "reverse" ? "reverse" : "color") : logoGlass(u, tone === "reverse");
+    return '<g transform="translate(0 4)">' + body + '</g>';
+  }
+  function Logo(props) {
+    var variant = props.variant || "lockup";
+    var tone = props.tone || "color";
+    var size = Number(props.size) || (variant === "lockup" ? 40 : 64);
+    var uid = useId(props.id);
+    var icon = variant === "app-icon";
+    var isLockup = variant === "lockup";
+    var svg = h("svg", {
+      className: "lo-logo-svg",
+      width: size,
+      height: size,
+      viewBox: "0 0 96 96",
+      role: isLockup ? undefined : "img",
+      "aria-label": isLockup ? undefined : props.label || "LetterOn",
+      "aria-hidden": isLockup ? "true" : undefined,
+      style: { overflow: "visible" },
+      dangerouslySetInnerHTML: { __html: logoInner(icon, tone, size <= 32, uid) }
+    });
+    if (!isLockup) return svg;
+    return h(
+      "span",
+      { className: cx("lo-logo", tone === "reverse" && "lo-logo-reverse", props.className), style: { gap: Math.round(size * 0.2) }, role: "img", "aria-label": "LetterOn" },
+      svg,
+      h("span", { className: "lo-logo-word", "aria-hidden": "true", style: { fontSize: Math.round(size * 0.6) } }, "letteron")
+    );
+  }
+  var WORDMARK_SIZES = { md: 36, lg: 46, xl: 60 };
   function Wordmark(props) {
-    return h("span", { className: cx("lo-wordmark", "lo-wordmark-" + (props.size || "md"), props.className) }, "LetterOn");
+    return h(Logo, { variant: "lockup", size: WORDMARK_SIZES[props.size || "md"] || 36, className: props.className });
   }
 
   /* ---------- Actions ---------- */
@@ -468,6 +534,7 @@
 
   window.LetterOn = Object.assign(window.LetterOn || {}, {
     Icon: Icon,
+    Logo: Logo,
     Wordmark: Wordmark,
     Button: Button,
     IconButton: IconButton,

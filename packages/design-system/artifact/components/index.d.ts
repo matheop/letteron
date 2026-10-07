@@ -19,7 +19,20 @@ export interface IconProps {
 }
 export declare function Icon(props: IconProps): React.ReactElement;
 
-/** "LetterOn" in Libre Baskerville 700, until there is a logo. */
+export interface LogoProps {
+  /** lockup (default): symbol + "letteron". mark: the symbol alone. app-icon: the symbol on a rounded square (favicon, extension, store). */
+  variant?: 'lockup' | 'mark' | 'app-icon';
+  /** color (default): coral glass. mono: one colour, currentColor. reverse: white glass, for coral or photo grounds. dark: app-icon on the night tile. */
+  tone?: 'color' | 'mono' | 'reverse' | 'dark';
+  /** Side of the symbol in px (the lockup text follows at 60%). Default 40 for the lockup, 64 otherwise. At 32px and below it switches to the flat version. */
+  size?: number;
+  /** Accessible name of the mark and app-icon. Default "LetterOn". */
+  label?: string;
+  className?: string;
+}
+export declare function Logo(props: LogoProps): React.ReactElement;
+
+/** The horizontal lockup at three text sizes: md 22px (headers, sidebar), lg 28px (sign-in), xl 36px. Same as Logo variant="lockup". */
 export declare function Wordmark(props: { size?: 'md' | 'lg' | 'xl'; className?: string }): React.ReactElement;
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -251,7 +264,7 @@ export declare function Kbd(props: { children: React.ReactNode; className?: stri
 declare global {
   interface Window {
     LetterOn: {
-      Icon: typeof Icon; Wordmark: typeof Wordmark; Button: typeof Button; IconButton: typeof IconButton;
+      Icon: typeof Icon; Logo: typeof Logo; Wordmark: typeof Wordmark; Button: typeof Button; IconButton: typeof IconButton;
       TextField: typeof TextField; SearchField: typeof SearchField; Badge: typeof Badge; Avatar: typeof Avatar;
       Chip: typeof Chip; FilterButton: typeof FilterButton; Menu: typeof Menu; SegmentedControl: typeof SegmentedControl;
       NavItem: typeof NavItem; TypeTag: typeof TypeTag; BookmarkCard: typeof BookmarkCard;

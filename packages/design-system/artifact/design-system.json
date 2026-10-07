@@ -1,33 +1,75 @@
 {
   "v": 3,
-  "assetGroups": {},
+  "assetGroups": {
+    "Logo": {
+      "name": "Logo",
+      "tile": "l",
+      "order": [
+        "mark.svg",
+        "app-icon.svg",
+        "app-icon-dark.svg",
+        "app-icon-small.svg"
+      ],
+      "files": {
+        "mark.svg": {
+          "name": "mark.svg",
+          "blob": "b3ddb205eb60819afa9ac5bc04a45602",
+          "size": 3633,
+          "type": "image/svg+xml"
+        },
+        "app-icon.svg": {
+          "name": "app-icon.svg",
+          "blob": "db203493f77d471e3f29c168244b8f21",
+          "size": 3896,
+          "type": "image/svg+xml"
+        },
+        "app-icon-dark.svg": {
+          "name": "app-icon-dark.svg",
+          "blob": "37fe5b62afe2c783165cb8eefd45d5fa",
+          "size": 3895,
+          "type": "image/svg+xml"
+        },
+        "app-icon-small.svg": {
+          "name": "app-icon-small.svg",
+          "blob": "e7b92e6fdafed25e11c29b5a89dcb9bb",
+          "size": 631,
+          "type": "image/svg+xml"
+        }
+      }
+    }
+  },
   "blobs": {},
   "createdOnFiles": {
     "at": "2026-09-27T21:17:10Z",
     "v": 1
   },
   "docs": {
+    "readme": "project/README.md",
     "sections": []
   },
-  "groups": [],
+  "groups": [
+    "Logo"
+  ],
   "lastChange": {
+    "at": "2026-10-06T11:00:00Z",
     "by": "Mathéo",
-    "at": "2026-09-29T20:29:30Z",
     "via": "Claude (Cowork)",
-    "note": "UI en anglais, vocabulaire « bookmark ». ItemCard devient BookmarkCard : métadonnées composées par le composant (source · durée ou temps de lecture · date d'ajout), extrait séparé, actions au survol. Nouveaux composants issus des maquettes : Icon, Wordmark, IconButton, SearchField, FilterButton, Menu, SegmentedControl, NavItem, Alert, Toast, Dialog, EmptyState, Skeleton, Kbd. Nouveau token scrim."
+    "note": "Nouveau style de texte body-sm (14/20, texte secondaire) issu des maquettes. Règle : plus de tailles de texte écrites à la main dans les écrans. README : section logo rétablie."
   },
   "layout": "files",
   "libraries": [
     {
+      "global": "React",
       "name": "react",
       "version": "18"
     },
     {
+      "global": "ReactDOM",
       "name": "react-dom",
       "version": "18"
     }
   ],
   "namespace": "LetterOn",
   "sections": {},
-  "title": "LetterOn"
+  "title": "LetterOn — Design System"
 }

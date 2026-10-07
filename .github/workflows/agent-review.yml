@@ -61,7 +61,7 @@ jobs:
               2. Bugs, cas limites non gérés, régressions probables.
               3. Sécurité (données utilisateur, injection, secrets, droits).
               4. Respect du scope et des patterns existants.
-              5. Design system (seulement si la PR touche l'UI) : conventions de docs/design-system.md,
+              5. Design system (seulement si la PR touche l'UI) : conventions de CLAUDE.md et packages/design-system/README.md,
                  composants du DS plutôt que des composants ad hoc, tokens au lieu de valeurs en dur
                  (couleurs, espacements, typo), pas de doublon d'un composant existant.
                  Une violation des conventions = [BLOQUANT]. Un composant générique manquant = [DS-GAP]

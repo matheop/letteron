@@ -8,11 +8,15 @@ LetterOn est une app « à lire plus tard » : sauvegarder en un clic vidéos Yo
 
 Règles du jeu complètes : document Linear « Workflow agentique — règles du jeu » (projet LetterOn).
 
-<!-- À compléter par l'agent qui traite l'issue AGENTS.md : stack, arborescence principale, commandes. -->
-- Stack : TODO
-- Lancer les tests : `TODO` (ex. `npm test`)
-- Lint / typecheck : `TODO`
-- Lancer l'app en local : `TODO`
+**Lis aussi [`CLAUDE.md`](CLAUDE.md)** : règles produit, vocabulaire UI, boucle du design system et conventions. Il s'applique à tous les agents, pas seulement à Claude ; en cas de conflit, il fait foi sur ce fichier. Spec, décisions (D-xx) et glossaire : liens dans [`docs/README.md`](docs/README.md). Une décision du journal fait foi sur tout le reste ; cite son numéro quand elle justifie un choix.
+
+- Stack : TypeScript strict (`tsconfig.base.json`), Node 22 (`.nvmrc`), workspaces npm. Framework web, base de données, auth et build de l'extension ne sont pas encore choisis (voir « Décisions ouvertes » dans `README.md`) : n'en introduis pas un sans approbation.
+- Arborescence : `apps/web` (web app responsive), `apps/extension` (Chrome MV3), `apps/api` ; `packages/design-system`, `packages/db` (schéma et migrations), `packages/shared` (types du domaine, contrat de capture, détection du type).
+- Installer : `nvm use && npm install`
+- Tests : `npm test` · Lint : `npm run lint` (scripts de workspace lancés avec `--if-present` : ils ne font rien tant qu'un workspace ne les définit pas).
+- Typecheck : pas encore de script ; à ajouter avec le premier code TypeScript.
+- Design system : `npm run tokens` (génère `packages/design-system/dist/tokens.css`), `npm run check -w @letteron/design-system` (vérifie que les tokens sont à jour), `npm run preview -w @letteron/design-system` (catalogue local).
+- Lancer l'app en local : `npm run dev` (aucune app n'a encore de script `dev`).
 
 ## Comment travailler une issue
 
@@ -25,9 +29,10 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 
 ## Design system
 
-- Conventions : `docs/design-system.md`. Composants : `components/ui/` (à ajuster au chemin réel).
-- Utilise d'abord un composant du DS. Utilise les tokens, jamais de couleur, d'espacement ou de taille de police en dur.
-- Tu ne crées PAS de nouveau composant générique dans `components/ui/` : c'est le rôle de l'agent design system.
+- Package : `packages/design-system` (`@letteron/design-system`). Conventions : `packages/design-system/README.md`, la charte dans `packages/design-system/artifact/README.md` et la section « Design system : la boucle » de `CLAUDE.md`.
+- Source de vérité : en phase maquettes, l'artifact claude.ai fait foi et `packages/design-system/artifact/` en est le miroir (ne jamais l'éditer à la main). La bascule vers le code est notée dans `docs/README.md`.
+- Utilise d'abord un composant de `@letteron/design-system` et les variables de `dist/tokens.css`, jamais de couleur, d'espacement, de taille de police ou de rayon en dur. Clair et sombre obligatoires.
+- Tu ne crées PAS de nouveau composant générique dans `packages/design-system` : c'est le rôle de l'agent design system.
   Si un composant manque, crée-le localement dans le dossier de la feature et ajoute dans la PR une ligne
   `DS-GAP: <composant> — <besoin>`.
 - Tu ne modifies pas un composant du DS ni un token dans une PR de feature. Si c'est nécessaire → Needs approval.

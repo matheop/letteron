@@ -21,7 +21,7 @@ permissions:
 env:
   MAX_LINES: 200
   MAX_FILES: 10
-  REVIEWER: "CHANGE_ME_github_username"
+  REVIEWER: "matheop"
   # Regex (grep -E) des chemins qui imposent une relecture humaine
   SENSITIVE_PATHS: '^(\.github/|infra/|migrations/|prisma/migrations/|supabase/migrations/|src/(auth|billing|payments)/|package\.json$|.*lock(\.json|\.yaml)?$|\.env)'
 

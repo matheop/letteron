@@ -1,0 +1,83 @@
+# Auto-merge des petites PR à faible risque.
+# Une PR est auto-mergée (squash) dès que la CI requise est verte SI :
+#   - la description contient "Risk: low" (posé par l'agent depuis le label Linear risk:low)
+#   - <= MAX_LINES lignes modifiées et <= MAX_FILES fichiers
+#   - aucun fichier sensible touché (SENSITIVE_PATHS)
+# Sinon : label "needs-human-review" + demande de review à REVIEWER.
+#
+# Prérequis repo : Settings > General > "Allow auto-merge" coché,
+# et une branch protection / ruleset sur main exigeant les checks CI.
+
+name: auto-merge-small-prs
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, ready_for_review, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  MAX_LINES: 200
+  MAX_FILES: 10
+  REVIEWER: "CHANGE_ME_github_username"
+  # Regex (grep -E) des chemins qui imposent une relecture humaine
+  SENSITIVE_PATHS: '^(\.github/|infra/|migrations/|prisma/migrations/|supabase/migrations/|src/(auth|billing|payments)/|package\.json$|.*lock(\.json|\.yaml)?$|\.env)'
+
+jobs:
+  gate:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Évaluer le risque de la PR
+        id: eval
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          repo="${{ github.repository }}"
+          info=$(gh api "repos/$repo/pulls/$PR")
+          lines=$(( $(echo "$info" | jq .additions) + $(echo "$info" | jq .deletions) ))
+          files=$(echo "$info" | jq .changed_files)
+          sensitive=$(gh api --paginate "repos/$repo/pulls/$PR/files" --jq '.[].filename' | grep -E "$SENSITIVE_PATHS" || true)
+          risk_low=$(printf '%s' "$BODY" | grep -iqE '^\s*risk:\s*low' && echo yes || echo no)
+
+          reasons=()
+          [ "$risk_low" = "yes" ] || reasons+=("pas de 'Risk: low' dans la description")
+          [ "$lines" -le "$MAX_LINES" ] || reasons+=("$lines lignes > $MAX_LINES")
+          [ "$files" -le "$MAX_FILES" ] || reasons+=("$files fichiers > $MAX_FILES")
+          [ -z "$sensitive" ] || reasons+=("fichiers sensibles : $(echo $sensitive | tr '\n' ' ')")
+
+          if [ ${#reasons[@]} -eq 0 ]; then
+            echo "auto=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "auto=no" >> "$GITHUB_OUTPUT"
+            { echo "reasons<<EOF"; printf -- '- %s\n' "${reasons[@]}"; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Activer l'auto-merge
+        if: steps.eval.outputs.auto == 'yes'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} -R ${{ github.repository }} --add-label auto-merge --remove-label needs-human-review || true
+          gh pr merge ${{ github.event.pull_request.number }} -R ${{ github.repository }} --auto --squash
+
+      - name: Demander une relecture humaine
+        if: steps.eval.outputs.auto == 'no'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REASONS: ${{ steps.eval.outputs.reasons }}
+        run: |
+          n=${{ github.event.pull_request.number }}
+          gh pr merge "$n" -R ${{ github.repository }} --disable-auto || true
+          gh pr edit "$n" -R ${{ github.repository }} --add-label needs-human-review --remove-label auto-merge --add-reviewer "$REVIEWER" || true
+          # Un seul commentaire par PR : on ne recommente pas à chaque push
+          if ! gh pr view "$n" -R ${{ github.repository }} --json comments --jq '.comments[].body' | grep -q 'auto-merge-gate'; then
+            gh pr comment "$n" -R ${{ github.repository }} --body "<!-- auto-merge-gate -->
+          Relecture humaine requise :
+          $REASONS"
+          fi

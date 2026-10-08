@@ -1,0 +1,7 @@
+/* Uniquement des variables de @letteron/design-system/tokens.css (clair et sombre). */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}

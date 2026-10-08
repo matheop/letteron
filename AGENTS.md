@@ -10,13 +10,12 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 
 **Lis aussi [`CLAUDE.md`](CLAUDE.md)** : règles produit, vocabulaire UI, boucle du design system et conventions. Il s'applique à tous les agents, pas seulement à Claude ; en cas de conflit, il fait foi sur ce fichier. Spec, décisions (D-xx) et glossaire : liens dans [`docs/README.md`](docs/README.md). Une décision du journal fait foi sur tout le reste ; cite son numéro quand elle justifie un choix.
 
-- Stack : TypeScript strict (`tsconfig.base.json`), Node 22 (`.nvmrc`), workspaces npm. Framework web, base de données, auth et build de l'extension ne sont pas encore choisis (voir « Décisions ouvertes » dans `README.md`) : n'en introduis pas un sans approbation.
+- Stack : TypeScript strict (`tsconfig.base.json`), Node 22 (`.nvmrc`), workspaces npm. Web app : Next.js 16 (App Router) dans `apps/web`, déployée sur Vercel ; avant d'y coder, lis `apps/web/AGENTS.md` si présent et la doc de `node_modules/next/dist/docs/` (Next 16 diffère de ce que tu connais). Base de données, auth, API et build de l'extension ne sont pas encore choisis (voir « Décisions ouvertes » dans `README.md`) : n'en introduis pas un sans approbation.
 - Arborescence : `apps/web` (web app responsive), `apps/extension` (Chrome MV3), `apps/api` ; `packages/design-system`, `packages/db` (schéma et migrations), `packages/shared` (types du domaine, contrat de capture, détection du type).
 - Installer : `nvm use && npm install`
-- Tests : `npm test` · Lint : `npm run lint` (scripts de workspace lancés avec `--if-present` : ils ne font rien tant qu'un workspace ne les définit pas).
-- Typecheck : pas encore de script ; à ajouter avec le premier code TypeScript.
+- Tests : `npm test` (Vitest, fichiers `*.test.ts(x)` à côté du code) · Lint : `npm run lint` (ESLint, config Next) · Typecheck : `npm run typecheck` (`next typegen` + `tsc --noEmit`). Scripts lancés dans chaque workspace avec `--if-present` : pour l'instant seul `apps/web` les définit ; tout nouveau workspace TypeScript ajoute les siens.
 - Design system : `npm run tokens` (génère `packages/design-system/dist/tokens.css`), `npm run check -w @letteron/design-system` (vérifie que les tokens sont à jour), `npm run preview -w @letteron/design-system` (catalogue local).
-- Lancer l'app en local : `npm run dev` (aucune app n'a encore de script `dev`).
+- Lancer l'app en local : `npm run dev` (web app sur http://localhost:3000, régénère `tokens.css` avant). Build : `npm run build`.
 
 ## Comment travailler une issue
 

@@ -30,7 +30,7 @@ npm run tokens     # génère packages/design-system/dist/tokens.css
 
 Le journal dit « stack web JS/TS classique » (D-08) sans trancher le détail. À décider avant de coder :
 
-- [ ] Framework web (et s'il porte aussi l'API)
+- [x] Framework web : Next.js 16 (App Router) dans `apps/web` (LET-10). Reste à décider s'il porte aussi l'API
 - [ ] Base de données et ORM
 - [ ] Auth : lib ou service (Google OAuth + email/mot de passe + vérification, D-31)
 - [ ] Service d'emails transactionnels

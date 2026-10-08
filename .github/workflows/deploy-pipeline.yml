@@ -1,0 +1,148 @@
+# Pipeline staging -> preprod -> prod, piloté par les parcours de test (Playwright).
+# Les tests ne tournent QU'APRÈS un déploiement Vercel réussi (aucune exécution planifiée).
+#
+#   main        -> staging  (domaine staging.*, branche preview Vercel)
+#   preprod     -> preprod  (domaine preprod.*, branche preview Vercel)
+#   production  -> prod     (branche de production Vercel)
+#
+# Parcours verts : le même commit est poussé (fast-forward) sur la branche suivante -> Vercel redéploie.
+# Parcours rouges : promotion stoppée + issue GitHub avec la criticité évaluée à partir des tags des tests.
+#   @critical : parcours cœur cassé  -> severity:critical (correction urgente ; en prod : rollback auto)
+#   @major    : fonction importante  -> severity:major    (à corriger dans la journée / le sprint)
+#   @minor    : gêne mineure         -> severity:minor    (backlog)
+# Un test sans tag est traité comme @major.
+#
+# Secrets : VERCEL_AUTOMATION_BYPASS_SECRET (Deployment Protection), SMOKE_USER_EMAIL,
+#           SMOKE_USER_PASSWORD, VERCEL_TOKEN (rollback prod).
+# Vars    : VERCEL_SCOPE (ex. matheops-projects).
+# Les branches preprod et production doivent autoriser les pushs de github-actions[bot].
+
+name: deploy-pipeline
+
+on:
+  deployment_status:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: deploy-pipeline-${{ github.event.deployment.ref }}
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      contains(fromJSON('["main","preprod","production"]'), github.event.deployment.ref)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Résoudre l'environnement
+        id: env
+        run: |
+          case "${{ github.event.deployment.ref }}" in
+            main)       echo "name=staging" >> "$GITHUB_OUTPUT"; echo "next=preprod"    >> "$GITHUB_OUTPUT" ;;
+            preprod)    echo "name=preprod" >> "$GITHUB_OUTPUT"; echo "next=production" >> "$GITHUB_OUTPUT" ;;
+            production) echo "name=prod"    >> "$GITHUB_OUTPUT"; echo "next="           >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Parcours de test
+        id: tests
+        continue-on-error: true
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          SMOKE_USER_EMAIL: ${{ secrets.SMOKE_USER_EMAIL }}
+          SMOKE_USER_PASSWORD: ${{ secrets.SMOKE_USER_PASSWORD }}
+          PLAYWRIGHT_JSON_OUTPUT_NAME: results.json
+        run: npx playwright test e2e/smoke --retries=1 --reporter=json,list
+
+      - name: Évaluer la criticité
+        id: sev
+        if: steps.tests.outcome == 'failure'
+        run: |
+          failed=$(jq -c '[.. | objects | select(has("specs")) | .specs[] | select(.ok == false) | {title, tags: (.tags // [])}]' results.json 2>/dev/null || echo '[]')
+          if [ "$failed" = "[]" ]; then
+            # Échec hors tests (build, config) : considéré critique
+            severity=critical; list="- Échec avant ou hors des tests (voir le run)"
+          else
+            if   echo "$failed" | jq -e 'any(.[]; .tags | map(ascii_downcase) | any(test("critical")))' >/dev/null; then severity=critical
+            elif echo "$failed" | jq -e 'any(.[]; (.tags | map(ascii_downcase) | any(test("minor"))) | not)' >/dev/null; then severity=major
+            else severity=minor; fi
+            list=$(echo "$failed" | jq -r '.[] | "- \(.title) \(.tags | join(" "))"')
+          fi
+          echo "level=$severity" >> "$GITHUB_OUTPUT"
+          { echo "list<<EOF"; echo "$list"; echo "EOF"; } >> "$GITHUB_OUTPUT"
+
+      - name: Promouvoir vers l'environnement suivant
+        if: steps.tests.outcome == 'success' && steps.env.outputs.next != ''
+        run: |
+          git push origin "${{ github.event.deployment.sha }}:refs/heads/${{ steps.env.outputs.next }}"
+
+      - name: Rollback prod si critique
+        if: steps.tests.outcome == 'failure' && steps.env.outputs.name == 'prod' && steps.sev.outputs.level == 'critical'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npx vercel rollback --yes --token "$VERCEL_TOKEN" --scope "${{ vars.VERCEL_SCOPE }}"
+
+      - name: Ouvrir ou compléter l'issue de régression
+        if: steps.tests.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ENV_NAME: ${{ steps.env.outputs.name }}
+          LEVEL: ${{ steps.sev.outputs.level }}
+          LIST: ${{ steps.sev.outputs.list }}
+        run: |
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          case "$LEVEL" in
+            critical) urgency="URGENT : parcours cœur cassé. Correction immédiate.";;
+            major)    urgency="Important : à corriger dans la journée.";;
+            minor)    urgency="Mineur : peut attendre le backlog.";;
+          esac
+          [ "$ENV_NAME" = "prod" ] && [ "$LEVEL" = "critical" ] && urgency="$urgency Rollback prod lancé automatiquement."
+          for l in regression "severity:$LEVEL" "env:$ENV_NAME"; do gh label create "$l" --force >/dev/null 2>&1 || true; done
+          title="[$ENV_NAME][$LEVEL] Parcours en échec"
+          existing=$(gh issue list --label regression --label "env:$ENV_NAME" --state open --json number --jq '.[0].number // empty')
+          body="**Environnement** : $ENV_NAME
+          **Criticité** : $LEVEL. $urgency
+          **Commit** : ${{ github.event.deployment.sha }}
+          **Promotion** : stoppée à cet environnement.
+
+          Parcours en échec :
+          $LIST
+
+          Run et rapport : $run_url"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+            gh issue edit "$existing" --add-label "severity:$LEVEL"
+          else
+            gh issue create --title "$title" --label regression --label "severity:$LEVEL" --label "env:$ENV_NAME" --body "$body"
+          fi
+
+      - name: Garder le rapport
+        if: steps.tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ steps.env.outputs.name }}
+          path: |
+            results.json
+            test-results/
+          retention-days: 14
+
+      - name: Statut final
+        if: steps.tests.outcome == 'failure'
+        run: exit 1

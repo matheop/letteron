@@ -6,11 +6,11 @@ Tout ce que tu veux lire, au même endroit. Une app « à lire plus tard » : on
 
 ```
 apps/
-  web/          web app (desktop + responsive mobile)
+  web/          web app Next.js (desktop + responsive mobile)
   extension/    extension Chrome (Manifest V3)
   api/          back : auth, capture, détection du type, métadonnées
 packages/
-  design-system/  tokens clair/sombre + composants (miroir de l'artifact claude.ai)
+  design-system/  tokens clair/sombre + composants (source de vérité du design system)
   db/             schéma et migrations
   shared/         types du domaine, contrat de capture, détection du type
 docs/             liens vers la spec, les décisions, le glossaire, les maquettes
@@ -30,7 +30,8 @@ npm run tokens     # génère packages/design-system/dist/tokens.css
 
 Le journal dit « stack web JS/TS classique » (D-08) sans trancher le détail. À décider avant de coder :
 
-- [x] Framework web : Next.js 16 (App Router) dans `apps/web` (LET-10). Reste à décider s'il porte aussi l'API
+- [x] Framework front : Next.js 16 (App Router) dans `apps/web` (LET-10). Reste à décider s'il porte aussi l'API
+- [x] Source de vérité du design system : le package `packages/design-system` du repo, depuis le 2026-10-08 (voir `docs/README.md`)
 - [ ] Base de données et ORM
 - [ ] Auth : lib ou service (Google OAuth + email/mot de passe + vérification, D-31)
 - [ ] Service d'emails transactionnels

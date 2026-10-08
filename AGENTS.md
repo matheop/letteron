@@ -29,7 +29,7 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 ## Design system
 
 - Package : `packages/design-system` (`@letteron/design-system`). Conventions : `packages/design-system/README.md`, la charte dans `packages/design-system/artifact/README.md` et la section « Design system : la boucle » de `CLAUDE.md`.
-- Source de vérité : en phase maquettes, l'artifact claude.ai fait foi et `packages/design-system/artifact/` en est le miroir (ne jamais l'éditer à la main). La bascule vers le code est notée dans `docs/README.md`.
+- Source de vérité : depuis le 2026-10-08, le package `packages/design-system` du repo fait foi (plus l'artifact claude.ai) ; voir `docs/README.md`.
 - Utilise d'abord un composant de `@letteron/design-system` et les variables de `dist/tokens.css`, jamais de couleur, d'espacement, de taille de police ou de rayon en dur. Clair et sombre obligatoires.
 - Tu ne crées PAS de nouveau composant générique dans `packages/design-system` : c'est le rôle de l'agent design system.
   Si un composant manque, crée-le localement dans le dossier de la feature et ajoute dans la PR une ligne

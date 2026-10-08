@@ -13,9 +13,8 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 - Stack : TypeScript strict (`tsconfig.base.json`), Node 22 (`.nvmrc`), workspaces npm. Framework web, base de données, auth et build de l'extension ne sont pas encore choisis (voir « Décisions ouvertes » dans `README.md`) : n'en introduis pas un sans approbation.
 - Arborescence : `apps/web` (web app responsive), `apps/extension` (Chrome MV3), `apps/api` ; `packages/design-system`, `packages/db` (schéma et migrations), `packages/shared` (types du domaine, contrat de capture, détection du type).
 - Installer : `nvm use && npm install`
-- Tests : `npm test` lance le script `test` de chaque workspace qui en a un. Runner : celui de Node (`node --test`, TypeScript lu nativement par Node 22), fichiers `*.test.ts` à côté du code. Aujourd'hui : `packages/shared`.
-- Lint : `npm run lint` (ESLint + typescript-eslint, config `eslint.config.mjs` à la racine, tout le repo sauf `packages/design-system/artifact/`).
-- Typecheck : `npm run typecheck` (`tsc -b` sur les project references de `tsconfig.json`). Un nouveau package TypeScript ajoute son `tsconfig.json` (qui étend `tsconfig.base.json`, avec `composite: true`) et une entrée dans `references`.
+- Tests : `npm test` · Lint : `npm run lint` (scripts de workspace lancés avec `--if-present` : ils ne font rien tant qu'un workspace ne les définit pas).
+- Typecheck : pas encore de script ; à ajouter avec le premier code TypeScript.
 - Design system : `npm run tokens` (génère `packages/design-system/dist/tokens.css`), `npm run check -w @letteron/design-system` (vérifie que les tokens sont à jour), `npm run preview -w @letteron/design-system` (catalogue local).
 - Lancer l'app en local : `npm run dev` (aucune app n'a encore de script `dev`).
 

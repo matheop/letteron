@@ -22,7 +22,7 @@ const send = (res, code, body, type = "text/plain") => {
 async function list() {
   const names = [];
   for (const n of await readdir(comps)) {
-    try { await stat(join(comps, n, "preview.html")); names.push(n); } catch { /* pas de preview.html : on ignore ce composant */ }
+    try { await stat(join(comps, n, "preview.html")); names.push(n); } catch {}
   }
   return names.sort();
 }

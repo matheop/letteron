@@ -12,3 +12,6 @@ coverage/
 # extension Chrome empaquetée
 *.crx
 *.pem
+# next.js
+next-env.d.ts
+*.tsbuildinfo

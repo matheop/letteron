@@ -6,7 +6,7 @@ Le design system de LetterOn dans le repo : les tokens (couleurs clair/sombre, t
 
 | Dossier | Contenu | On l'édite ? |
 | --- | --- | --- |
-| `artifact/` | Copie miroir de l'artifact « LetterOn » (design system sur claude.ai) : `README.md` (la charte), `tokens.json`, `components/` (bundle, styles, types, guide et aperçu par composant) | Non, on le resynchronise |
+| `artifact/` | Import initial de l'artifact « LetterOn » (claude.ai) : `README.md` (la charte), `tokens.json`, `components/` (bundle, styles, types, guide et aperçu par composant) | Oui, dans le repo (plus de recopie depuis claude.ai) |
 | `scripts/build-tokens.mjs` | Génère `dist/tokens.css` depuis `artifact/tokens.json` | Oui |
 | `dist/tokens.css` | Variables CSS (`--paper`, `--coral-strong`, `--space-4`…) + classes `.lo-text-*` | Non, généré |
 
@@ -19,10 +19,13 @@ Côté app : importer `@letteron/design-system/tokens.css` une fois, puis n'util
 
 ## Source de vérité
 
-- **Aujourd'hui (avant le code)** : l'artifact claude.ai fait foi. On y promeut les composants validés sur le canevas, puis on resynchronise `artifact/` ici.
-- **Dès que `apps/web` démarre** : on bascule. Les composants deviennent du vrai code React dans `src/` (réécrits depuis `artifact/components/bundle.js` et `index.d.ts`), et l'artifact est resynchronisé depuis ce package.
+**Depuis le 2026-10-08, ce package fait foi** (bascule faite au démarrage de `apps/web`, LET-10, notée dans `docs/README.md`).
 
-Un seul côté fait foi à la fois. La bascule est notée dans `docs/README.md`.
+- Tokens, charte et composants se modifient ici, dans le repo. Les tokens restent dans `artifact/tokens.json` (source de `dist/tokens.css`) tant qu'ils n'ont pas migré.
+- Les composants deviennent du vrai code React dans `src/` (réécrits depuis `artifact/components/bundle.js` et `index.d.ts`), au fil des besoins de `apps/web`.
+- L'artifact claude.ai n'est plus la référence : il est resynchronisé depuis ce package si on veut garder l'aperçu.
+
+Avant le 2026-10-08 (phase maquettes), c'était l'inverse : l'artifact faisait foi et `artifact/` en était le miroir.
 
 ## Composants (artifact)
 

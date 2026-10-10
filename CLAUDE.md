@@ -23,7 +23,7 @@ App « à lire plus tard » (web + extension Chrome). Dev solo JS/TS. Interface 
 1. **UI = design system uniquement.** Composants de `@letteron/design-system`, variables de `dist/tokens.css`. Aucune couleur, taille ou rayon en dur. Clair et sombre obligatoires.
 2. **Nouveau motif** : on l'explore sur le canevas de maquettes. S'il manque un composant ou un token, on ne le bricole pas dans une app : on le signale.
 3. **Promotion** : une fois validé (et utilisé sur au moins 2 écrans), il entre dans le design system (artifact tant qu'on est en phase maquettes, `packages/design-system/src` ensuite), avec son guide et son aperçu.
-4. **Resynchronisation** : après chaque changement de l'artifact, recopier ses fichiers dans `packages/design-system/artifact/` (ne jamais les éditer à la main), puis `npm run tokens`.
+4. **Resynchronisation** : depuis le 2026-10-08, le repo fait foi. On modifie `packages/design-system`, puis `npm run tokens` ; l'artifact claude.ai n'est plus recopié ici (il se resynchronise depuis le code si besoin).
 5. Un seul côté fait foi à la fois : voir `docs/README.md`.
 
 ## Conventions

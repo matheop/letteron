@@ -2,5 +2,30 @@
   "name": "@letteron/web",
   "version": "0.0.0",
   "private": true,
-  "description": "Web app LetterOn (desktop + responsive mobile, D-11)."
+  "description": "Web app LetterOn (desktop + responsive mobile, D-11).",
+  "scripts": {
+    "predev": "npm run build -w @letteron/design-system",
+    "dev": "next dev",
+    "prebuild": "npm run build -w @letteron/design-system",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@letteron/design-system": "*",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  }
 }

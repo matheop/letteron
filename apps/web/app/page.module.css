@@ -1,0 +1,7 @@
+.main {
+  padding: var(--space-10) var(--space-6);
+}
+
+.tagline {
+  color: var(--ink-muted);
+}

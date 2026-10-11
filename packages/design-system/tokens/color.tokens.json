@@ -183,6 +183,18 @@
         "hex": "#221b33"
       },
       "$description": "Voile derrière une modale ou une feuille. Jamais de texte posé directement dessus."
+    },
+    "on-image": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "hex": "#ffffff"
+      },
+      "$description": "Blanc fixe dans les deux thèmes, posé sur un aplat coral, coral-strong ou une photo : logo « reverse ». Jamais sur paper ni surface."
     }
   },
   "shadow": {

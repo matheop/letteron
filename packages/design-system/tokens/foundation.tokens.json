@@ -205,6 +205,28 @@
         }
       }
     },
+    "label-sm": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 13,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.5384615385
+      },
+      "$description": "Libellé compact : petits boutons, contrôle segmenté. 13px/20px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Interface",
+          "sample": "List"
+        }
+      }
+    },
     "caption": {
       "$value": {
         "fontFamily": "{font.sans}",
@@ -229,12 +251,26 @@
     }
   },
   "space": {
+    "1": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "Petits écarts internes : icône de puce, pastilles, entre étiquettes d’une carte."
+    },
     "2": {
       "$value": {
         "value": 8,
         "unit": "px"
       },
       "$description": "Écart icône–libellé, padding interne des badges."
+    },
+    "3": {
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Padding des éléments de menu et de navigation, des bandeaux, toasts et actions de modale."
     },
     "4": {
       "$value": {
@@ -243,12 +279,26 @@
       },
       "$description": "Padding des boutons et des cartes, écart entre éléments liés."
     },
+    "5": {
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Padding horizontal des boutons de taille normale."
+    },
     "6": {
       "$value": {
         "value": 24,
         "unit": "px"
       },
       "$description": "Marges d'écran mobile, écart entre cartes."
+    },
+    "8": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Padding des modales."
     },
     "10": {
       "$value": {
@@ -258,7 +308,35 @@
       "$description": "Entre deux sections."
     },
     "$type": "dimension",
-    "$description": "Base 8 px, généreuse : l'app doit respirer."
+    "$description": "Base 8 px, généreuse : l'app doit respirer.",
+    "0-5": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Écart minimal : entre les options d’un menu ou d’un contrôle segmenté, padding vertical des compteurs."
+    },
+    "1-5": {
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "Écart libellé–champ, icône–texte dans une puce ou un contrôle segmenté."
+    },
+    "2-5": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      },
+      "$description": "Padding vertical des champs, padding horizontal des badges et des boutons de filtre."
+    },
+    "3-5": {
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Padding horizontal des petits boutons, puces, champs et contrôles segmentés."
+    }
   },
   "radius": {
     "$type": "dimension",
@@ -269,6 +347,13 @@
         "unit": "px"
       },
       "$description": "Champs, bandeaux, badges, petites vignettes."
+    },
+    "md": {
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Vignettes de bookmark et grands squelettes de chargement."
     },
     "lg": {
       "$value": {
@@ -329,6 +414,177 @@
         }
       ],
       "$description": "Focus clavier : 2 px de la couleur du fond, puis 2 px de coral-strong (en box-shadow, il suit l'arrondi). Suit le thème via les alias {color.paper} et {color.coral-strong}."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "$description": "Tailles fixes : hauteurs des contrôles, icônes, médias, illustrations et largeurs maximales.",
+    "control": {
+      "$description": "Hauteur (et largeur des contrôles carrés) des éléments interactifs.",
+      "xs": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Badges, bouton de retrait d’une puce, touches Kbd."
+      },
+      "sm": {
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "Petits boutons, petit avatar, icône de bandeau."
+      },
+      "md": {
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        },
+        "$description": "Puces, contrôle segmenté, petit bouton-icône."
+      },
+      "lg": {
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "$description": "Boutons, champ de recherche, éléments de menu et de navigation : cible tactile confortable."
+      }
+    },
+    "icon": {
+      "$description": "Taille des icônes (Icon dessine en currentColor sur une grille de 24).",
+      "xs": {
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "$description": "Icône de type dans TypeTag."
+      },
+      "sm": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Icône dans une puce."
+      },
+      "md": {
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "$description": "Taille par défaut d’Icon : boutons, menus."
+      },
+      "lg": {
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "$description": "Icône de toast."
+      },
+      "xl": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "$description": "Icône de modale."
+      }
+    },
+    "media": {
+      "$description": "Vignettes et avatars.",
+      "sm": {
+        "$value": {
+          "value": 64,
+          "unit": "px"
+        },
+        "$description": "Grand avatar, vignette d’un bookmark en liste."
+      },
+      "md": {
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        },
+        "$description": "Vignette large d’un bookmark en liste, hauteur minimale d’un champ multiligne."
+      }
+    },
+    "illustration": {
+      "$description": "Illustrations des états vides.",
+      "md": {
+        "$value": {
+          "value": 72,
+          "unit": "px"
+        },
+        "$description": "État vide de taille normale."
+      },
+      "lg": {
+        "$value": {
+          "value": 104,
+          "unit": "px"
+        },
+        "$description": "Grand état vide (écran entier)."
+      }
+    },
+    "dot": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      },
+      "$description": "Pastille de navigation (nouveautés)."
+    },
+    "width": {
+      "$description": "Largeurs maximales ou minimales.",
+      "menu": {
+        "$value": {
+          "value": 220,
+          "unit": "px"
+        },
+        "$description": "Largeur minimale d’un menu."
+      },
+      "dialog": {
+        "$value": {
+          "value": 480,
+          "unit": "px"
+        },
+        "$description": "Largeur maximale d’une modale et d’un état vide."
+      }
+    }
+  },
+  "border-width": {
+    "$type": "dimension",
+    "$description": "Épaisseurs de trait.",
+    "thin": {
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$description": "Filets et contours discrets : menus, cartes, toasts, badges neutres."
+    },
+    "thick": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Contours des contrôles (boutons secondaires, champs, puces) et outline transparent du focus pour le mode contraste élevé."
+    }
+  },
+  "duration": {
+    "$type": "duration",
+    "fast": {
+      "$value": {
+        "value": 120,
+        "unit": "ms"
+      },
+      "$description": "Transitions courtes : survol et appui d’un bouton, apparition des actions d’une carte."
+    }
+  },
+  "easing": {
+    "$type": "cubicBezier",
+    "standard": {
+      "$value": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ],
+      "$description": "Courbe par défaut des transitions (équivalent de « ease »)."
     }
   }
 }

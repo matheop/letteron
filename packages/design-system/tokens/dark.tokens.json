@@ -168,6 +168,17 @@
         "alpha": 0.702,
         "hex": "#0b0810"
       }
+    },
+    "on-image": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "hex": "#ffffff"
+      }
     }
   },
   "shadow": {

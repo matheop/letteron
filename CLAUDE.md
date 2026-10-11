@@ -20,11 +20,12 @@ App « à lire plus tard » (web + extension Chrome). Dev solo JS/TS. Interface 
 
 ## Design system : la boucle
 
-1. **UI = design system uniquement.** Composants de `@letteron/design-system`, variables de `dist/tokens.css`, générées depuis les tokens DTCG de `packages/design-system/tokens/` (source de vérité du style : lis la `$description` d'un token avant de l'utiliser). Aucune couleur, taille ou rayon en dur. Clair et sombre obligatoires.
-2. **Nouveau motif** : on l'explore sur le canevas de maquettes. S'il manque un composant ou un token, on ne le bricole pas dans une app : on le signale.
-3. **Promotion** : une fois validé (et utilisé sur au moins 2 écrans), il entre dans le design system (artifact tant qu'on est en phase maquettes, `packages/design-system/src` ensuite), avec son guide et son aperçu.
-4. **Resynchronisation** : depuis le 2026-10-08, le repo fait foi. On modifie `packages/design-system` (les tokens dans `tokens/*.tokens.json`), puis `npm run tokens` ; l'artifact claude.ai n'est plus recopié ici (il se resynchronise depuis le code si besoin).
-5. Un seul côté fait foi à la fois : voir `docs/README.md`.
+Règles complètes : `packages/design-system/CONVENTIONS.md`. En bref :
+
+1. **UI = design system uniquement.** Composants de `@letteron/design-system`, variables de `dist/tokens.css` générées depuis les tokens DTCG de `packages/design-system/tokens/` (lis la `$description` d'un token avant de l'utiliser). Aucune valeur en dur. Clair et sombre obligatoires.
+2. **Il manque quelque chose** : un composant → composant local + ligne `DS-GAP` dans la PR ; un token → Needs approval.
+3. **Promotion** : un motif validé et réutilisé entre dans `packages/design-system` avec son guide, ses tests et son aperçu (seuil : voir CONVENTIONS.md).
+4. **Source de vérité** : depuis le 2026-10-08, le repo fait foi (`docs/README.md`) ; après un changement de tokens, `npm run tokens`.
 
 ## Conventions
 

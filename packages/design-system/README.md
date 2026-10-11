@@ -6,11 +6,11 @@ Le design system de LetterOn dans le repo : les tokens (couleurs clair/sombre, t
 
 | Dossier | Contenu | On l'édite ? |
 | --- | --- | --- |
-| `tokens/` | **Source de vérité du style**, au format standard [DTCG 2025.10](https://www.designtokens.org/TR/2025.10/format) : `foundation.tokens.json` (polices, styles de texte, espacements, rayons, focus), `color.tokens.json` (couleurs et ombre, thème clair), `dark.tokens.json` (valeurs du thème sombre), `letteron.resolver.json` (assemble le tout et déclare le thème clair/sombre) | Oui |
+| `tokens/` | **Source de vérité du style**, au format standard [DTCG 2025.10](https://www.designtokens.org/TR/2025.10/format) : `foundation.tokens.json` (polices, styles de texte, espacements, rayons, tailles, épaisseurs de trait, durée et courbe des transitions, focus), `color.tokens.json` (couleurs et ombre, thème clair), `dark.tokens.json` (valeurs du thème sombre), `letteron.resolver.json` (assemble le tout et déclare le thème clair/sombre) | Oui |
 | `terrazzo.config.mjs` | Génération du CSS avec [Terrazzo](https://terrazzo.app) et règles de vérification des tokens | Oui |
 | `dist/tokens.css` | Point d'entrée importé par les apps : `@import` de `dist/variables.css` (variables `--paper`, `--coral-strong`, `--space-4`…) + classes `.lo-text-*` | Non, généré |
 | `artifact/` | Import initial de l'artifact « LetterOn » (claude.ai) : `README.md` (la charte), `components/` (bundle, styles, types, guide et aperçu par composant) | Oui, dans le repo (plus de recopie depuis claude.ai) |
-| `INVENTAIRE-VALEURS.md` | Valeurs en dur de `bundle.css` et le token qui les remplace (document de travail de LET-18) | Oui |
+| `INVENTAIRE-VALEURS.md` | Valeurs en dur de `bundle.css`, le token qui les remplace et les exceptions acceptées (document de travail de LET-18) | Oui |
 
 ```bash
 npm run tokens                             # régénère dist/ (tz build)

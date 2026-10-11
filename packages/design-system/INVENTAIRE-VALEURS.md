@@ -1,14 +1,14 @@
 # Inventaire des valeurs en dur de `artifact/components/bundle.css` (LET-19)
 
-Document de travail pour LET-18 (port des composants) : chaque valeur écrite en dur dans `bundle.css` est associée à un token existant, à un nouveau token proposé, ou à une exception. **Les nouveaux tokens (🆕) et les exceptions (⚖️) attendent la validation de Mathéo** (questions Q1 à Q6 sur LET-19) ; ils ne sont pas encore dans `tokens/`. Une fois LET-18 terminé, ce fichier peut être supprimé.
+Document de travail pour LET-18 (port des composants) : chaque valeur écrite en dur dans `bundle.css` est associée à un token. **Décisions validées par Mathéo le 2026-10-11** (questions Q1 à Q6 sur LET-19, recommandation A partout) : les nouveaux tokens (🆕) sont dans `tokens/foundation.tokens.json` et `tokens/color.tokens.json`, les exceptions (⚖️) sont acceptées et doivent être commentées dans le code. Les cibles marquées « +N px » changent légèrement le rendu, c'est voulu. Une fois LET-18 terminé, ce fichier peut être supprimé.
 
 Généré en lisant les 174 déclarations qui contiennent une valeur en dur (180 occurrences, `var(--…)` exclus).
 
 | Statut | Occurrences |
 | --- | --- |
 | ✅ Token existant | 59 |
-| 🆕 Nouveau token proposé | 114 |
-| ⚖️ Exception proposée | 7 |
+| 🆕 Nouveau token (ajouté) | 114 |
+| ⚖️ Exception acceptée (sans token) | 7 |
 
 | Famille | Valeur | Occ. | Statut | Cible | Où (sélecteurs) |
 | --- | --- | --- | --- | --- | --- |

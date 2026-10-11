@@ -1,0 +1,590 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Fondations de LetterOn qui ne changent pas entre clair et sombre : polices, styles de texte, espacements, rayons, anneau de focus.",
+  "font": {
+    "$type": "fontFamily",
+    "$description": "Familles de polices.",
+    "serif": {
+      "$value": [
+        "Libre Baskerville",
+        "Baskerville",
+        "Georgia",
+        "Times New Roman",
+        "serif"
+      ],
+      "$description": "Libre Baskerville : titres et lecture."
+    },
+    "sans": {
+      "$value": [
+        "Plus Jakarta Sans",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "sans-serif"
+      ],
+      "$description": "Plus Jakarta Sans : tout le reste de l’interface."
+    }
+  },
+  "text": {
+    "$type": "typography",
+    "$description": "Titres (serif) : Libre Baskerville (Google Fonts) pour les titres : une touche éditoriale, comme un magazine qu'on garde pour plus tard. Toujours en 700, jamais en dessous de 17 px.\nLecture (serif) : Le corps des articles dans la vue de lecture épurée.\nInterface (sans) : Plus Jakarta Sans pour tout le reste : ronde, ouverte, moderne.",
+    "display": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 36,
+          "unit": "px"
+        },
+        "fontWeight": 700,
+        "letterSpacing": {
+          "value": -0.36,
+          "unit": "px"
+        },
+        "lineHeight": 1.2222222222
+      },
+      "$description": "Écran vide, onboarding, grands moments. Une fois par écran. 36px/44px, interlettrage -0.01em.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Titres",
+          "sample": "Your reading pile is waiting"
+        }
+      }
+    },
+    "title": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 28,
+          "unit": "px"
+        },
+        "fontWeight": 700,
+        "letterSpacing": {
+          "value": -0.28,
+          "unit": "px"
+        },
+        "lineHeight": 1.2857142857
+      },
+      "$description": "Titre de page ; titre d'un article dans la vue de lecture (mobile). 28px/36px, interlettrage -0.01em.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Titres",
+          "sample": "To read"
+        }
+      }
+    },
+    "heading": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "fontWeight": 700,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.4
+      },
+      "$description": "Titres de section, de feuille et de modale. 20px/28px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Titres",
+          "sample": "Design collection"
+        }
+      }
+    },
+    "item-title": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 17,
+          "unit": "px"
+        },
+        "fontWeight": 700,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.4117647059
+      },
+      "$description": "Titre d'un bookmark dans une carte (liste ou grille), 2 lignes max. 17px/24px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Titres",
+          "sample": "Why cities are rediscovering trams"
+        }
+      }
+    },
+    "reading": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 18,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.7222222222
+      },
+      "$description": "Texte d'article, colonne de 640 px max. 18px/31px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Lecture",
+          "sample": "In twenty years, more than thirty French cities have reopened a tram line."
+        }
+      }
+    },
+    "body": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 16,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      },
+      "$description": "Texte d'interface, descriptions, messages. 16px/24px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Interface",
+          "sample": "Saved from Chrome in one click."
+        }
+      }
+    },
+    "body-sm": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.4285714286
+      },
+      "$description": "Texte secondaire d'interface : sous-titre d'une carte ou d'un formulaire, ligne « New here? ». Toujours en ink-muted, jamais pour une information critique. 14px/20px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Interface",
+          "sample": "Handy on a shared computer."
+        }
+      }
+    },
+    "label": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.4285714286
+      },
+      "$description": "Boutons, puces, onglets, libellés de champs. 14px/20px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Interface",
+          "sample": "Archive"
+        }
+      }
+    },
+    "label-sm": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 13,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.5384615385
+      },
+      "$description": "Libellé compact : petits boutons, contrôle segmenté. 13px/20px.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Interface",
+          "sample": "List"
+        }
+      }
+    },
+    "caption": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": 0.12,
+          "unit": "px"
+        },
+        "lineHeight": 1.3333333333
+      },
+      "$description": "Métadonnées d'un bookmark : source, durée ou temps de lecture, date d'ajout. 12px/16px, interlettrage 0.01em.",
+      "$extensions": {
+        "app.letteron": {
+          "group": "Interface",
+          "sample": "lemonde.fr · 8 min read · 2d ago"
+        }
+      }
+    }
+  },
+  "space": {
+    "1": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "Petits écarts internes : icône de puce, pastilles, entre étiquettes d’une carte."
+    },
+    "2": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Écart icône–libellé, padding interne des badges."
+    },
+    "3": {
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Padding des éléments de menu et de navigation, des bandeaux, toasts et actions de modale."
+    },
+    "4": {
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Padding des boutons et des cartes, écart entre éléments liés."
+    },
+    "5": {
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Padding horizontal des boutons de taille normale."
+    },
+    "6": {
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Marges d'écran mobile, écart entre cartes."
+    },
+    "8": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Padding des modales."
+    },
+    "10": {
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "Entre deux sections."
+    },
+    "$type": "dimension",
+    "$description": "Base 8 px, généreuse : l'app doit respirer.",
+    "0-5": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Écart minimal : entre les options d’un menu ou d’un contrôle segmenté, padding vertical des compteurs."
+    },
+    "1-5": {
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "Écart libellé–champ, icône–texte dans une puce ou un contrôle segmenté."
+    },
+    "2-5": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      },
+      "$description": "Padding vertical des champs, padding horizontal des badges et des boutons de filtre."
+    },
+    "3-5": {
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Padding horizontal des petits boutons, puces, champs et contrôles segmentés."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "$description": "Tout est arrondi, franchement : c'est la première chose qui rend LetterOn amical.",
+    "sm": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Champs, bandeaux, badges, petites vignettes."
+    },
+    "md": {
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Vignettes de bookmark et grands squelettes de chargement."
+    },
+    "lg": {
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Cartes, feuilles, bulles, menus, modales."
+    },
+    "full": {
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$description": "Boutons (pilules), champ de recherche, avatars, puces, navigation."
+    }
+  },
+  "focus": {
+    "ring": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "{color.paper}",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 2,
+            "unit": "px"
+          }
+        },
+        {
+          "color": "{color.coral-strong}",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 4,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Focus clavier : 2 px de la couleur du fond, puis 2 px de coral-strong (en box-shadow, il suit l'arrondi). Suit le thème via les alias {color.paper} et {color.coral-strong}."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "$description": "Tailles fixes : hauteurs des contrôles, icônes, médias, illustrations et largeurs maximales.",
+    "control": {
+      "$description": "Hauteur (et largeur des contrôles carrés) des éléments interactifs.",
+      "xs": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Badges, bouton de retrait d’une puce, touches Kbd."
+      },
+      "sm": {
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "Petits boutons, petit avatar, icône de bandeau."
+      },
+      "md": {
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        },
+        "$description": "Puces, contrôle segmenté, petit bouton-icône."
+      },
+      "lg": {
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "$description": "Boutons, champ de recherche, éléments de menu et de navigation : cible tactile confortable."
+      }
+    },
+    "icon": {
+      "$description": "Taille des icônes (Icon dessine en currentColor sur une grille de 24).",
+      "xs": {
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "$description": "Icône de type dans TypeTag."
+      },
+      "sm": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Icône dans une puce."
+      },
+      "md": {
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "$description": "Taille par défaut d’Icon : boutons, menus."
+      },
+      "lg": {
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "$description": "Icône de toast."
+      },
+      "xl": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "$description": "Icône de modale."
+      }
+    },
+    "media": {
+      "$description": "Vignettes et avatars.",
+      "sm": {
+        "$value": {
+          "value": 64,
+          "unit": "px"
+        },
+        "$description": "Grand avatar, vignette d’un bookmark en liste."
+      },
+      "md": {
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        },
+        "$description": "Vignette large d’un bookmark en liste, hauteur minimale d’un champ multiligne."
+      }
+    },
+    "illustration": {
+      "$description": "Illustrations des états vides.",
+      "md": {
+        "$value": {
+          "value": 72,
+          "unit": "px"
+        },
+        "$description": "État vide de taille normale."
+      },
+      "lg": {
+        "$value": {
+          "value": 104,
+          "unit": "px"
+        },
+        "$description": "Grand état vide (écran entier)."
+      }
+    },
+    "dot": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      },
+      "$description": "Pastille de navigation (nouveautés)."
+    },
+    "width": {
+      "$description": "Largeurs maximales ou minimales.",
+      "menu": {
+        "$value": {
+          "value": 220,
+          "unit": "px"
+        },
+        "$description": "Largeur minimale d’un menu."
+      },
+      "dialog": {
+        "$value": {
+          "value": 480,
+          "unit": "px"
+        },
+        "$description": "Largeur maximale d’une modale et d’un état vide."
+      }
+    }
+  },
+  "border-width": {
+    "$type": "dimension",
+    "$description": "Épaisseurs de trait.",
+    "thin": {
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$description": "Filets et contours discrets : menus, cartes, toasts, badges neutres."
+    },
+    "thick": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Contours des contrôles (boutons secondaires, champs, puces) et outline transparent du focus pour le mode contraste élevé."
+    }
+  },
+  "duration": {
+    "$type": "duration",
+    "fast": {
+      "$value": {
+        "value": 120,
+        "unit": "ms"
+      },
+      "$description": "Transitions courtes : survol et appui d’un bouton, apparition des actions d’une carte."
+    }
+  },
+  "easing": {
+    "$type": "cubicBezier",
+    "standard": {
+      "$value": [
+        0.25,
+        0.1,
+        0.25,
+        1
+      ],
+      "$description": "Courbe par défaut des transitions (équivalent de « ease »)."
+    }
+  }
+}

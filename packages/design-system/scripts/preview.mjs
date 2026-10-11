@@ -10,8 +10,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const comps = join(root, "artifact", "components");
 const port = Number(process.env.PORT || 4173);
 
-// Toujours repartir d'un tokens.css à jour.
-execFileSync("node", [join(root, "scripts", "build-tokens.mjs")], { stdio: "inherit" });
+// Toujours repartir d'un tokens.css à jour (Terrazzo, depuis tokens/*.tokens.json).
+execFileSync("npx", ["tz", "build"], { cwd: root, stdio: "inherit" });
 
 const types = { ".css": "text/css", ".js": "text/javascript", ".html": "text/html", ".json": "application/json" };
 const send = (res, code, body, type = "text/plain") => {

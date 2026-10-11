@@ -6,22 +6,33 @@ Le design system de LetterOn dans le repo : les tokens (couleurs clair/sombre, t
 
 | Dossier | Contenu | On l'édite ? |
 | --- | --- | --- |
-| `artifact/` | Import initial de l'artifact « LetterOn » (claude.ai) : `README.md` (la charte), `tokens.json`, `components/` (bundle, styles, types, guide et aperçu par composant) | Oui, dans le repo (plus de recopie depuis claude.ai) |
-| `scripts/build-tokens.mjs` | Génère `dist/tokens.css` depuis `artifact/tokens.json` | Oui |
-| `dist/tokens.css` | Variables CSS (`--paper`, `--coral-strong`, `--space-4`…) + classes `.lo-text-*` | Non, généré |
+| `tokens/` | **Source de vérité du style**, au format standard [DTCG 2025.10](https://www.designtokens.org/TR/2025.10/format) : `foundation.tokens.json` (polices, styles de texte, espacements, rayons, tailles, épaisseurs de trait, durée et courbe des transitions, focus), `color.tokens.json` (couleurs et ombre, thème clair), `dark.tokens.json` (valeurs du thème sombre), `letteron.resolver.json` (assemble le tout et déclare le thème clair/sombre) | Oui |
+| `terrazzo.config.mjs` | Génération du CSS avec [Terrazzo](https://terrazzo.app) et règles de vérification des tokens | Oui |
+| `dist/tokens.css` | Point d'entrée importé par les apps : `@import` de `dist/variables.css` (variables `--paper`, `--coral-strong`, `--space-4`…) + classes `.lo-text-*` | Non, généré |
+| `artifact/` | Import initial de l'artifact « LetterOn » (claude.ai) : `README.md` (la charte), `components/` (bundle, styles, types, guide et aperçu par composant) | Oui, dans le repo (plus de recopie depuis claude.ai) |
+| `INVENTAIRE-VALEURS.md` | Valeurs en dur de `bundle.css`, le token qui les remplace et les exceptions acceptées (document de travail de LET-18) | Oui |
 
 ```bash
-npm run tokens     # régénère dist/tokens.css
-npm run check -w @letteron/design-system   # vérifie qu'il est à jour
+npm run tokens                             # régénère dist/ (tz build)
+npm run check -w @letteron/design-system   # valide les tokens (tz check)
 ```
 
+`npm run check` vérifie la syntaxe DTCG, que chaque token a une `$description`, le nommage en kebab-case et les contrastes promis par les descriptions des couleurs (WCAG AA, thème clair).
+
 Côté app : importer `@letteron/design-system/tokens.css` une fois, puis n'utiliser que les variables. Thème : clair par défaut, sombre avec `data-theme="dark"` sur `<html>` ou via le réglage système.
+
+## Lire et faire évoluer les tokens
+
+- **Avant d'utiliser une valeur, lis le token et sa `$description`** dans `tokens/*.tokens.json` : elle dit quand l'utiliser (et sur quel fond pour une couleur). Les mêmes descriptions sont en commentaire dans `dist/variables.css`.
+- Nom CSS = chemin du token, sans le préfixe `color.` : `color.coral-strong` → `--coral-strong`, `space.4` → `--space-4`, `text.body` → `--text-body-font|size|line|weight` et la classe `.lo-text-body`.
+- Thème : une couleur ou une ombre a sa valeur claire dans `color.tokens.json` et sa valeur sombre dans `dark.tokens.json` ; les deux sont obligatoires.
+- Nouveau token ou valeur modifiée : c'est un choix visuel, donc Needs approval (Mathéo) avant de l'ajouter.
 
 ## Source de vérité
 
 **Depuis le 2026-10-08, ce package fait foi** (bascule faite au démarrage de `apps/web`, LET-10, notée dans `docs/README.md`).
 
-- Tokens, charte et composants se modifient ici, dans le repo. Les tokens restent dans `artifact/tokens.json` (source de `dist/tokens.css`) tant qu'ils n'ont pas migré.
+- Tokens, charte et composants se modifient ici, dans le repo. Les tokens DTCG de `tokens/` sont la source de vérité du style (LET-19) : `dist/` en est généré.
 - Les composants deviennent du vrai code React dans `src/` (réécrits depuis `artifact/components/bundle.js` et `index.d.ts`), au fil des besoins de `apps/web`.
 - L'artifact claude.ai n'est plus la référence : il est resynchronisé depuis ce package si on veut garder l'aperçu.
 
@@ -39,4 +50,4 @@ Utilitaires : `formatAddedAt(date, now)` et `formatReadingTime(minutes)`, la rè
 npm run preview -w packages/design-system   # http://localhost:4173
 ```
 
-Sert un catalogue en lecture seule : chaque composant (`artifact/components/*/preview.html`) est affiché avec React 18, `tokens.css` régénéré et le bundle, avec bascule clair/sombre. React est chargé depuis unpkg (connexion requise). Le dossier `artifact/` n'est jamais modifié.
+Sert un catalogue en lecture seule : chaque composant (`artifact/components/*/preview.html`) est affiché avec React 18, `tokens.css` régénéré par Terrazzo et le bundle, avec bascule clair/sombre. React est chargé depuis unpkg (connexion requise). Le dossier `artifact/` n'est jamais modifié.

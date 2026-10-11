@@ -1,0 +1,41 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
+  "name": "LetterOn",
+  "version": "2025.10",
+  "description": "Design system LetterOn. Un seul réglage : le thème (clair par défaut, sombre).",
+  "sets": {
+    "foundation": {
+      "description": "Tous les tokens, valeurs du thème clair.",
+      "sources": [
+        {
+          "$ref": "foundation.tokens.json"
+        },
+        {
+          "$ref": "color.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "description": "Thème de couleur (D-25 : suit le système par défaut).",
+      "contexts": {
+        "light": [],
+        "dark": [
+          {
+            "$ref": "dark.tokens.json"
+          }
+        ]
+      },
+      "default": "light"
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/foundation"
+    },
+    {
+      "$ref": "#/modifiers/theme"
+    }
+  ]
+}

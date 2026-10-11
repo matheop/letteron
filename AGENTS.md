@@ -14,7 +14,7 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 - Arborescence : `apps/web` (web app responsive), `apps/extension` (Chrome MV3), `apps/api` ; `packages/design-system`, `packages/db` (schéma et migrations), `packages/shared` (types du domaine, contrat de capture, détection du type).
 - Installer : `nvm use && npm install`
 - Tests : `npm test` (Vitest, fichiers `*.test.ts(x)` à côté du code) · Lint : `npm run lint` (ESLint, config Next) · Typecheck : `npm run typecheck` (`next typegen` + `tsc --noEmit`). Scripts lancés dans chaque workspace avec `--if-present` : pour l'instant seul `apps/web` les définit ; tout nouveau workspace TypeScript ajoute les siens.
-- Design system : `npm run tokens` (génère `packages/design-system/dist/tokens.css`), `npm run check -w @letteron/design-system` (vérifie que les tokens sont à jour), `npm run preview -w @letteron/design-system` (catalogue local).
+- Design system : `npm run tokens` (génère `packages/design-system/dist/` depuis les tokens DTCG avec Terrazzo), `npm run check -w @letteron/design-system` (valide les tokens : syntaxe, descriptions, nommage, contrastes), `npm run preview -w @letteron/design-system` (catalogue local).
 - Lancer l'app en local : `npm run dev` (web app sur http://localhost:3000, régénère `tokens.css` avant). Build : `npm run build`.
 
 ## Comment travailler une issue
@@ -31,6 +31,7 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 - Package : `packages/design-system` (`@letteron/design-system`). Conventions : `packages/design-system/README.md`, la charte dans `packages/design-system/artifact/README.md` et la section « Design system : la boucle » de `CLAUDE.md`.
 - Source de vérité : depuis le 2026-10-08, le package `packages/design-system` du repo fait foi (plus l'artifact claude.ai) ; voir `docs/README.md`.
 - Utilise d'abord un composant de `@letteron/design-system` et les variables de `dist/tokens.css`, jamais de couleur, d'espacement, de taille de police ou de rayon en dur. Clair et sombre obligatoires.
+- Tokens : la source de vérité du style est `packages/design-system/tokens/*.tokens.json` (format DTCG). Lis le token et sa `$description` avant d'utiliser une valeur ; s'il en manque un, Needs approval (pas de valeur en dur, pas de token ajouté sans accord).
 - Tu ne crées PAS de nouveau composant générique dans `packages/design-system` : c'est le rôle de l'agent design system.
   Si un composant manque, crée-le localement dans le dossier de la feature et ajoute dans la PR une ligne
   `DS-GAP: <composant> — <besoin>`.

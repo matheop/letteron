@@ -1,0 +1,253 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Couleurs et ombre de LetterOn. Valeurs du thème clair (thème par défaut) ; le thème sombre les remplace via dark.tokens.json (voir letteron.resolver.json).",
+  "color": {
+    "$type": "color",
+    "paper": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.9725,
+          0.9451
+        ],
+        "hex": "#fff8f1"
+      },
+      "$description": "Fond de page : un blanc chaud et lisible ; en sombre, une nuit prune."
+    },
+    "surface": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "hex": "#ffffff"
+      },
+      "$description": "Cartes, feuilles, menus posés sur paper."
+    },
+    "line": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9216,
+          0.8745,
+          0.8235
+        ],
+        "hex": "#ebdfd2"
+      },
+      "$description": "Filets et séparateurs (décoratif, jamais seul porteur d'information) ; squelettes de chargement."
+    },
+    "line-strong": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5412,
+          0.502,
+          0.5882
+        ],
+        "hex": "#8a8096"
+      },
+      "$description": "Bordure des champs et des contrôles au repos (≥ 3:1 sur surface dans les deux thèmes)."
+    },
+    "ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1333,
+          0.1059,
+          0.2
+        ],
+        "hex": "#221b33"
+      },
+      "$description": "Texte principal et icônes, sur paper, surface et coral-soft (≥ 12:1 dans les deux thèmes)."
+    },
+    "ink-muted": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3961,
+          0.3608,
+          0.4549
+        ],
+        "hex": "#655c74"
+      },
+      "$description": "Texte secondaire, métadonnées, placeholders, sur paper, surface ou coral-soft (≥ 5:1 dans les deux thèmes)."
+    },
+    "coral": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.4157,
+          0.302
+        ],
+        "hex": "#ff6a4d"
+      },
+      "$description": "Couleur de marque en aplat : illustrations, grandes formes, pastilles décoratives. Jamais pour du texte ni sous du texte."
+    },
+    "coral-strong": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.749,
+          0.2275,
+          0.1255
+        ],
+        "hex": "#bf3a20"
+      },
+      "$description": "Action principale (fond du bouton, avec on-coral), liens, état actif, anneau de focus et erreurs ; en texte sur paper, surface ou coral-soft (≥ 4.5:1 dans les deux thèmes)."
+    },
+    "on-coral": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "hex": "#ffffff"
+      },
+      "$description": "Texte et icônes sur un aplat coral-strong (le libellé du bouton principal) : blanc en clair, prune en sombre."
+    },
+    "coral-soft": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8941,
+          0.8588
+        ],
+        "hex": "#ffe4db"
+      },
+      "$description": "Fonds teintés : sélection, navigation active, bandeau d'erreur, badge ; texte en ink ou coral-strong."
+    },
+    "sun": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7608,
+          0.2392
+        ],
+        "hex": "#ffc23d"
+      },
+      "$description": "Accent joyeux : nouveautés, compteur « to read », célébrations (file à lire vide). Toujours avec on-sun dessus."
+    },
+    "on-sun": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1333,
+          0.1059,
+          0.2
+        ],
+        "hex": "#221b33"
+      },
+      "$description": "Texte sur sun, dans les deux thèmes (10:1) ; jamais de blanc sur sun."
+    },
+    "mint": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0902,
+          0.4745,
+          0.3529
+        ],
+        "hex": "#17795a"
+      },
+      "$description": "Succès : « Saved to LetterOn », bookmark archivé, email vérifié ; en texte ou icône sur paper, surface ou mint-soft (≥ 4.5:1 dans les deux thèmes)."
+    },
+    "mint-soft": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.851,
+          0.949,
+          0.902
+        ],
+        "hex": "#d9f2e6"
+      },
+      "$description": "Fond du badge « Archived », du toast et du bandeau de succès ; texte mint dessus."
+    },
+    "scrim": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1333,
+          0.1059,
+          0.2
+        ],
+        "alpha": 0.549,
+        "hex": "#221b33"
+      },
+      "$description": "Voile derrière une modale ou une feuille. Jamais de texte posé directement dessus."
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "$description": "Une seule ombre, douce, pour ce qui flotte ; le reste est à plat.",
+    "float": {
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.1333,
+              0.1059,
+              0.2
+            ],
+            "alpha": 0.051,
+            "hex": "#221b33"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 4,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.1333,
+              0.1059,
+              0.2
+            ],
+            "alpha": 0.1216,
+            "hex": "#221b33"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 12,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 32,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -4,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Menus, toasts, modales et feuilles qui flottent au-dessus du contenu."
+    }
+  }
+}

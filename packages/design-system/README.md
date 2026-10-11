@@ -1,6 +1,6 @@
 # @letteron/design-system
 
-Le design system de LetterOn dans le repo : les tokens (couleurs clair/sombre, typo, espacements, arrondis, ombres) et les composants.
+Le design system de LetterOn dans le repo : les tokens (couleurs clair/sombre, typo, espacements, arrondis, ombres) et les composants. Règles : [`CONVENTIONS.md`](CONVENTIONS.md).
 
 ## Ce qu'il y a dedans
 
@@ -21,12 +21,9 @@ npm run check -w @letteron/design-system   # valide les tokens (tz check)
 
 Côté app : importer `@letteron/design-system/tokens.css` une fois, puis n'utiliser que les variables. Thème : clair par défaut, sombre avec `data-theme="dark"` sur `<html>` ou via le réglage système.
 
-## Lire et faire évoluer les tokens
+## Règles
 
-- **Avant d'utiliser une valeur, lis le token et sa `$description`** dans `tokens/*.tokens.json` : elle dit quand l'utiliser (et sur quel fond pour une couleur). Les mêmes descriptions sont en commentaire dans `dist/variables.css`.
-- Nom CSS = chemin du token, sans le préfixe `color.` : `color.coral-strong` → `--coral-strong`, `space.4` → `--space-4`, `text.body` → `--text-body-font|size|line|weight` et la classe `.lo-text-body`.
-- Thème : une couleur ou une ombre a sa valeur claire dans `color.tokens.json` et sa valeur sombre dans `dark.tokens.json` ; les deux sont obligatoires.
-- Nouveau token ou valeur modifiée : c'est un choix visuel, donc Needs approval (Mathéo) avant de l'ajouter.
+Toutes les règles (principes, usage et nommage des tokens, quel composant choisir, faire évoluer le design system, règles vérifiables) sont dans [`CONVENTIONS.md`](CONVENTIONS.md). En bref : on n'utilise que les composants et les tokens, on lit la `$description` d'un token avant de l'utiliser, et un nouveau token passe par Needs approval.
 
 ## Source de vérité
 

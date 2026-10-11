@@ -23,7 +23,7 @@ Pas d'app mobile native au MVP (D-04, D-39) : le mobile, c'est la web app en res
 ```bash
 nvm use            # Node 22
 npm install
-npm run tokens     # génère packages/design-system/dist/tokens.css
+npm run tokens     # génère packages/design-system/dist/ depuis les tokens DTCG (Terrazzo)
 ```
 
 ## Décisions ouvertes

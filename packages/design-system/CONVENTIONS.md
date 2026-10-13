@@ -1,6 +1,6 @@
 # Conventions du design system LetterOn
 
-Le point d'entrée unique des règles du design system : comment l'utiliser, le nommer et le faire évoluer. Il s'adresse aux agents de code comme aux humains. Les règles marquées **(à valider, Pn)** attendent une décision de Mathéo (LET-14).
+Le point d'entrée unique des règles du design system : comment l'utiliser, le nommer et le faire évoluer. Il s'adresse aux agents de code comme aux humains. Validé par Mathéo le 2026-10-11 (LET-14).
 
 ## Où est quoi
 
@@ -8,7 +8,7 @@ Le point d'entrée unique des règles du design system : comment l'utiliser, le 
 | --- | --- | --- |
 | Valeurs du style | `tokens/*.tokens.json` (format DTCG) | Source de vérité : couleurs, typo, espacements, rayons, tailles, ombres, mouvement. Chaque token a une `$description` qui dit quand l'utiliser. |
 | Variables CSS | `dist/tokens.css` (généré, ne pas éditer) | Ce que les apps importent : `@import "@letteron/design-system/tokens.css"`. |
-| Charte | `artifact/README.md` | L'intention : ton de l'interface, vocabulaire, métadonnées d'un bookmark, fondations visuelles, logo. Ce fichier n'en recopie rien. |
+| Charte | `CHARTE.md` | L'intention : ton de l'interface, vocabulaire, métadonnées d'un bookmark, fondations visuelles, logo. Ce fichier n'en recopie rien. |
 | Guide d'un composant | `artifact/components/<Composant>/README.md` | Quand et comment utiliser ce composant, ses variantes, ses textes. |
 | API d'un composant | `artifact/components/index.d.ts` | Noms et props (types commentés). |
 | Valeurs en dur à remplacer | `INVENTAIRE-VALEURS.md` | Pour le port des composants en React (LET-18) : le token qui remplace chaque valeur. |
@@ -24,7 +24,7 @@ Le point d'entrée unique des règles du design system : comment l'utiliser, le 
    - le `--focus-ring` est visible sur tout élément interactif ;
    - vrais `<button>`, `<a>`, `<label>` ; une icône seule a toujours un nom accessible ;
    - la couleur n'est jamais le seul signal : une icône ou un texte l'accompagne ;
-   - cibles : `--size-control-lg` (44 px) pour les contrôles principaux, `--size-control-md` (36 px) au minimum dans les barres denses **(à valider, P3)**.
+   - cibles : `--size-control-lg` (44 px) pour les contrôles principaux, `--size-control-md` (36 px) au minimum dans les barres denses, petits boutons compris.
 4. **Sobriété** : aplats et filets plutôt qu'ombres, une seule ombre (`--shadow-float`) pour ce qui flotte, pas de dégradé hors du logo.
 5. **Ton et vocabulaire** : ceux de la charte (anglais, deuxième personne, majuscule au premier mot seulement, « bookmark », « To read »…).
 
@@ -40,10 +40,10 @@ Le point d'entrée unique des règles du design system : comment l'utiliser, le 
 
 | Groupe | Variables | Règle |
 | --- | --- | --- |
-| `color` | `--paper`, `--ink`, `--coral-strong`… | Par rôle, jamais par teinte : `ink` pour le texte, `coral-strong` pour une action, un lien ou une erreur, `mint` uniquement pour une réussite. Un texte sur un aplat prend le `on-*` de cet aplat (`on-coral`, `on-sun`, `on-image`). Détail : charte, « Fondations visuelles ». |
+| `color` | `--paper`, `--ink`, `--coral-strong`… | Par rôle, jamais par teinte : `ink` pour le texte, `coral-strong` pour une action, un lien ou une erreur, `mint` uniquement pour une réussite. Un texte sur un aplat prend le `on-*` de cet aplat (`on-coral`, `on-sun`, `on-image`). Détail : `CHARTE.md`, « Fondations visuelles ». |
 | `shadow`, `focus` | `--shadow-float`, `--focus-ring` | Seules ombres autorisées. |
 | `text` | classes `.lo-text-*`, variables `--text-<style>-font\|size\|line\|weight\|tracking` | Un texte prend toujours un style complet (classe, ou les variables d'un même style) : jamais une taille seule. |
-| `space` | `--space-0-5` (2 px) … `--space-10` (40 px), `space-N` = N × 4 px | Mise en page des écrans : pas de 8 px (`space-2`, `-4`, `-6`, `-10`). Les pas intermédiaires (`0-5`, `1`, `1-5`, `2-5`, `3`, `3-5`, `5`, `8`) servent à l'intérieur des composants **(à valider, P2)**. En cas de doute, le plus grand. |
+| `space` | `--space-0-5` (2 px) … `--space-10` (40 px), `space-N` = N × 4 px | Mise en page des écrans : pas de 8 px (`space-2`, `-4`, `-6`, `-10`). Les pas intermédiaires (`0-5`, `1`, `1-5`, `2-5`, `3`, `3-5`, `5`, `8`) servent à l'intérieur des composants. En cas de doute, le plus grand. |
 | `radius` | `--radius-sm` 8, `--radius-md` 14, `--radius-lg` 20, `--radius-full` | `lg` : ce qui contient ; `full` : ce qui se touche ; `sm` : champs, bandeaux, badges ; `md` : vignettes et grands squelettes. |
 | `size` | `--size-control-*`, `--size-icon-*`, `--size-media-*`, `--size-illustration-*`, `--size-dot`, `--size-width-*` | Hauteurs de contrôles, tailles d'icônes, médias et largeurs : on prend le token, on n'invente pas de taille. |
 | `border-width` | `--border-width-thin` 1, `--border-width-thick` 2 | `thin` pour les filets, `thick` pour les contours de contrôles et l'outline de secours du focus. |
@@ -100,7 +100,7 @@ Seules exceptions acceptées (LET-19, Q6), toujours commentées `/* exception DS
 | `Skeleton`, `SkeletonBookmark` | Les formes de chargement ; `SkeletonBookmark` prend exactement la place d'une carte. | [README](artifact/components/Skeleton/README.md) |
 | `formatAddedAt`, `formatReadingTime` | Les règles d'affichage de la date d'ajout et du temps de lecture (utilisées par `BookmarkCard`). | `index.d.ts` |
 
-`LibraryScreen` et `ReaderScreen` sont des écrans d'exemple qui montrent comment assembler les composants : ce ne sont pas des composants **(à valider, P6)**.
+`LibraryScreen` et `ReaderScreen` sont des écrans d'exemple qui montrent comment assembler les composants : ce ne sont pas des composants : ni exportés, ni portés en React. L'image de couverture de l'artifact est rangée dans `artifact/assets/Cover/`.
 
 ### Choisir entre composants proches
 
@@ -115,7 +115,7 @@ Seules exceptions acceptées (LET-19, Q6), toujours commentées `/* exception DS
 
 - `variant` : le style visuel (`primary`, `secondary`, `ghost`, `danger`).
 - `size` : `sm`, `md` (défaut), `lg`.
-- `tone` : sur un élément décoratif, une famille de couleur (`coral`, `sun`, `mint`) ; sur un message, une intention (`error`, `info`, `success`, `danger`) **(à valider, P5)**.
+- `tone` : sur un élément décoratif, une famille de couleur (`coral`, `sun`, `mint`) ; sur un message, une intention (`error`, `info`, `success`, `danger`). Gardé tel quel au port (LET-18), à revoir si ça gêne à l'usage.
 - `icon` : un nom d'`Icon` ou un SVG en `currentColor`.
 - `label` : obligatoire dès qu'il n'y a pas de texte visible (il devient le nom accessible).
 - `href` : rend un lien qui a l'apparence du composant.
@@ -132,7 +132,7 @@ Seules exceptions acceptées (LET-19, Q6), toujours commentées `/* exception DS
 
 1. **Explorer** : un nouveau motif s'explore d'abord dans les maquettes.
 2. **Signaler un manque** : dans une feature, s'il manque un composant, on le crée localement dans le dossier de la feature et on ajoute dans la PR une ligne `DS-GAP: <Composant> — <besoin> (<chemin du composant local>)`. S'il manque un token : Needs approval, jamais de valeur en dur.
-3. **Promouvoir** : un motif validé et utilisé sur au moins 2 écrans entre dans le design system **(à valider, P1)**, avec son `README.md`, ses tests et son aperçu.
+3. **Promouvoir** : un motif validé et utilisé sur au moins 2 écrans entre dans le design system, avec son `README.md`, ses tests et son aperçu.
 4. **Qui fait quoi** :
    - un agent de feature utilise le design system, ne crée pas de composant générique et ne modifie ni un composant ni un token ;
    - l'agent design system (issues `design-system`) crée et modifie les composants ;

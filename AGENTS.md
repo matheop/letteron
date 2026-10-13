@@ -28,14 +28,10 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 
 ## Design system
 
-- Package : `packages/design-system` (`@letteron/design-system`). Conventions : `packages/design-system/README.md`, la charte dans `packages/design-system/artifact/README.md` et la section « Design system : la boucle » de `CLAUDE.md`.
-- Source de vérité : depuis le 2026-10-08, le package `packages/design-system` du repo fait foi (plus l'artifact claude.ai) ; voir `docs/README.md`.
-- Utilise d'abord un composant de `@letteron/design-system` et les variables de `dist/tokens.css`, jamais de couleur, d'espacement, de taille de police ou de rayon en dur. Clair et sombre obligatoires.
-- Tokens : la source de vérité du style est `packages/design-system/tokens/*.tokens.json` (format DTCG). Lis le token et sa `$description` avant d'utiliser une valeur ; s'il en manque un, Needs approval (pas de valeur en dur, pas de token ajouté sans accord).
-- Tu ne crées PAS de nouveau composant générique dans `packages/design-system` : c'est le rôle de l'agent design system.
-  Si un composant manque, crée-le localement dans le dossier de la feature et ajoute dans la PR une ligne
-  `DS-GAP: <composant> — <besoin>`.
-- Tu ne modifies pas un composant du DS ni un token dans une PR de feature. Si c'est nécessaire → Needs approval.
+- Règles complètes : [`packages/design-system/CONVENTIONS.md`](packages/design-system/CONVENTIONS.md) (lis-le avant tout travail d'interface). Charte (ton, vocabulaire, fondations) : `packages/design-system/CHARTE.md`.
+- Source de vérité : le package `packages/design-system` ; pour le style, les tokens DTCG de `tokens/*.tokens.json`.
+- Utilise d'abord un composant de `@letteron/design-system`, sinon les variables de `dist/tokens.css` : aucune valeur en dur, clair et sombre obligatoires.
+- Agent de feature : tu ne crées pas de composant générique dans le package et tu ne modifies ni un composant ni un token. Composant manquant → composant local + ligne `DS-GAP: <Composant> — <besoin> (<chemin>)` dans la PR. Token manquant ou à modifier → Needs approval.
 
 ## Description de PR (obligatoire)
 

@@ -1,0 +1,68 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>LetterOn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--paper); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:288px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:288px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:288px; }
+  .brand { fill:var(--coral); }
+  .soft { fill:var(--coral-soft); }
+  .sun { fill:var(--sun); }
+  .deep { fill:var(--ink); }
+  .mint { fill:var(--mint); }
+  .ground { fill:var(--paper); }
+  .blk { rx:var(--radius-lg); }
+  /* pills 40px tall: rx = half the short side = radius-lg */
+  .pill { rx:var(--radius-lg); }
+  /* the mint tag is 16px tall: rx = radius-sm */
+  .tag8 { rx:var(--radius-sm); }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-family:var(--font-serif); font-size:84px; line-height:.95; font-weight:700; letter-spacing:-.02em; color:var(--ink); }
+  .tagline { margin:var(--space-2) 0 0 4px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      coral 160×288 bled off the top (the signature, largest) · sun disc Ø128 (the joyful accent) · ink 160×208 bleeding off the right edge · coral-soft pill 128×40 (the tint) · mint 56×16 once (it only means success: saved, archived) — ≈35% of 960×288
+  arrangement one tall coral slab with satellites, bottoms on one line space-6 above the edge, space-4 gutters
+  pattern     literal motif, from the name ("Letter") + "Tout est arrondi, franchement": postage-stamp perforations — space-4 discs cut in paper along the ink block's top and left edges at a space-6 pitch
+  scales      sides in space-2 multiples; gutters space-4; pitch space-6; corners radius-lg, pills rx radius-lg (half of 40), tag rx radius-sm (half of 16)
+-->
+<rect class="brand blk" x="24" y="-24" width="160" height="288" rx="20"/>
+<circle class="sun" cx="264" cy="200" r="64"/>
+<rect class="soft pill" x="200" y="48" width="128" height="40" rx="20"/>
+<rect class="mint tag8" x="200" y="104" width="56" height="16" rx="8"/>
+<rect class="deep blk" x="344" y="56" width="160" height="208" rx="20"/>
+<circle class="ground" cx="368" cy="56" r="8"/>
+<circle class="ground" cx="392" cy="56" r="8"/>
+<circle class="ground" cx="416" cy="56" r="8"/>
+<circle class="ground" cx="440" cy="56" r="8"/>
+<circle class="ground" cx="464" cy="56" r="8"/>
+<circle class="ground" cx="344" cy="80" r="8"/>
+<circle class="ground" cx="344" cy="104" r="8"/>
+<circle class="ground" cx="344" cy="128" r="8"/>
+<circle class="ground" cx="344" cy="152" r="8"/>
+<circle class="ground" cx="344" cy="176" r="8"/>
+<circle class="ground" cx="344" cy="200" r="8"/>
+<circle class="ground" cx="344" cy="224" r="8"/>
+<circle class="soft" cx="424" cy="160" r="32"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">LetterOn</h1>
+<p class="tagline">Tout ce que tu veux lire, au même endroit.</p>
+</div>
+</div>
+</body>
+</html>

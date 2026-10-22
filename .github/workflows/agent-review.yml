@@ -58,6 +58,11 @@ jobs:
           echo "HTTP $code"
           jq -r 'if .error then "\(.error.type): \(.error.message)" else "OK, modèle \(.model)" end' resp.json
           rm -f resp.json
+          echo "--- Claude Code CLI ---"
+          npx -y @anthropic-ai/claude-code@latest -p "Réponds juste ok" --output-format json --max-turns 1 > cc.json 2> cc.err || true
+          jq -r '"is_error=\(.is_error) result=\(.result) model=\(.modelUsage|keys)"' cc.json 2>/dev/null || head -c 600 cc.json
+          head -c 600 cc.err
+          rm -f cc.json cc.err
 
       - uses: actions/checkout@v4
         if: steps.key.outputs.enabled == 'true'

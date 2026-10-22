@@ -6,9 +6,10 @@ Tout ce que tu veux lire, au même endroit. Une app « à lire plus tard » : on
 
 ```
 apps/
-  web/          web app Next.js (desktop + responsive mobile) et son API (routes Next.js, D-45)
+  web/          web app Next.js (desktop + responsive mobile) ; monte l'API sous /api/v1 (D-45)
   extension/    extension Chrome (Manifest V3)
 packages/
+  api/            API Hono commune à tous les clients (web, extension, mobile plus tard), D-45 ; créée avec le premier endpoint
   design-system/  tokens clair/sombre + composants (source de vérité du design system)
   db/             schéma et migrations
   shared/         types du domaine, contrat de capture, détection du type
@@ -30,7 +31,7 @@ npm run tokens     # génère packages/design-system/dist/ depuis les tokens DTC
 Le journal dit « stack web JS/TS classique » (D-08) sans trancher le détail. À décider avant de coder :
 
 - [x] Framework front : Next.js 16 (App Router) dans `apps/web` (LET-10)
-- [x] API : routes Next.js dans `apps/web`, pas de serveur séparé (D-45)
+- [x] API : app Hono dans `packages/api`, exposée sous `/api/v1` et montée dans `apps/web` ; seul accès aux données pour tous les clients (D-45)
 - [x] Source de vérité du design system : le package `packages/design-system` du repo, depuis le 2026-10-08 (voir `docs/README.md`)
 - [x] Base de données et ORM : Postgres sur Neon (région UE), Drizzle dans `packages/db` (D-43)
 - [x] Auth : Better Auth, Google OAuth + email/mot de passe + vérification (D-44, D-31)

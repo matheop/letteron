@@ -10,12 +10,18 @@ Règles du jeu complètes : document Linear « Workflow agentique — règles du
 
 **Lis aussi [`CLAUDE.md`](CLAUDE.md)** : règles produit, vocabulaire UI, boucle du design system et conventions. Il s'applique à tous les agents, pas seulement à Claude ; en cas de conflit, il fait foi sur ce fichier. Spec, décisions (D-xx) et glossaire : liens dans [`docs/README.md`](docs/README.md). Une décision du journal fait foi sur tout le reste ; cite son numéro quand elle justifie un choix.
 
-- Stack : TypeScript strict (`tsconfig.base.json`), Node 22 (`.nvmrc`), workspaces npm. Web app : Next.js 16 (App Router) dans `apps/web`, déployée sur Vercel ; avant d'y coder, lis `apps/web/AGENTS.md` si présent et la doc de `node_modules/next/dist/docs/` (Next 16 diffère de ce que tu connais). API : routes Next.js dans `apps/web` (D-45). Base de données : Postgres (Neon) avec Drizzle dans `packages/db` (D-43). Auth : Better Auth (D-44). Emails : Resend (D-46). Le build de l'extension n'est pas encore choisi (voir « Décisions ouvertes » dans `README.md`) : n'introduis pas d'autre service ou librairie d'infrastructure sans approbation.
-- Arborescence : `apps/web` (web app responsive), `apps/extension` (Chrome MV3) ; `packages/design-system`, `packages/db` (schéma et migrations), `packages/shared` (types du domaine, contrat de capture, détection du type).
+- Stack : TypeScript strict (`tsconfig.base.json`), Node 22 (`.nvmrc`), workspaces npm. Web app : Next.js 16 (App Router) dans `apps/web`, déployée sur Vercel ; avant d'y coder, lis `apps/web/AGENTS.md` si présent et la doc de `node_modules/next/dist/docs/` (Next 16 diffère de ce que tu connais). API : app Hono dans `packages/api`, exposée sous `/api/v1` et montée dans `apps/web` (D-45). Base de données : Postgres (Neon) avec Drizzle dans `packages/db` (D-43). Auth : Better Auth (D-44). Emails : Resend (D-46). Le build de l'extension n'est pas encore choisi (voir « Décisions ouvertes » dans `README.md`) : n'introduis pas d'autre service ou librairie d'infrastructure sans approbation.
+- Arborescence : `apps/web` (web app responsive), `apps/extension` (Chrome MV3) ; `packages/api` (API Hono, D-45), `packages/design-system`, `packages/db` (schéma et migrations), `packages/shared` (types du domaine, contrat de capture, détection du type).
 - Installer : `nvm use && npm install`
 - Tests : `npm test` (Vitest, fichiers `*.test.ts(x)` à côté du code) · Lint : `npm run lint` (ESLint, config Next) · Typecheck : `npm run typecheck` (`next typegen` + `tsc --noEmit`). Scripts lancés dans chaque workspace avec `--if-present` : pour l'instant seul `apps/web` les définit ; tout nouveau workspace TypeScript ajoute les siens.
 - Design system : `npm run tokens` (génère `packages/design-system/dist/` depuis les tokens DTCG avec Terrazzo), `npm run check -w @letteron/design-system` (valide les tokens : syntaxe, descriptions, nommage, contrastes), `npm run preview -w @letteron/design-system` (catalogue local).
 - Lancer l'app en local : `npm run dev` (web app sur http://localhost:3000, régénère `tokens.css` avant). Build : `npm run build`.
+
+## API et données (D-45)
+
+- Toute lecture ou écriture de données passe par l'API de `packages/api` (`/api/v1/...`), y compris depuis la web app : l'extension et la future app mobile doivent pouvoir faire exactement la même chose.
+- Pas de server action Next.js ni d'accès direct à la base (`packages/db`) depuis `apps/web` ou `apps/extension`. Les clients appellent l'API avec le client typé de Hono.
+- La logique métier va dans `packages/shared` (détection du type, règles du domaine) ; les routes de `packages/api` restent minces.
 
 ## Comment travailler une issue
 

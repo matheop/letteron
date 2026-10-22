@@ -45,7 +45,7 @@ Le point d'entrée unique des règles du design system : comment l'utiliser, le 
 | `text` | classes `.lo-text-*`, variables `--text-<style>-font\|size\|line\|weight\|tracking` | Un texte prend toujours un style complet (classe, ou les variables d'un même style) : jamais une taille seule. |
 | `space` | `--space-0-5` (2 px) … `--space-10` (40 px), `space-N` = N × 4 px | Mise en page des écrans : pas de 8 px (`space-2`, `-4`, `-6`, `-10`). Les pas intermédiaires (`0-5`, `1`, `1-5`, `2-5`, `3`, `3-5`, `5`, `8`) servent à l'intérieur des composants. En cas de doute, le plus grand. |
 | `radius` | `--radius-sm` 8, `--radius-md` 14, `--radius-lg` 20, `--radius-full` | `lg` : ce qui contient ; `full` : ce qui se touche ; `sm` : champs, bandeaux, badges ; `md` : vignettes et grands squelettes. |
-| `size` | `--size-control-*`, `--size-icon-*`, `--size-media-*`, `--size-illustration-*`, `--size-dot`, `--size-width-*` | Hauteurs de contrôles, tailles d'icônes, médias et largeurs : on prend le token, on n'invente pas de taille. |
+| `size` | `--size-control-*`, `--size-icon-*` (icônes), `--size-icon-badge-*` (pastille qui porte une icône), `--size-media-*`, `--size-illustration-*`, `--size-dot`, `--size-width-*` | Hauteurs de contrôles, tailles d'icônes, médias et largeurs : on prend le token, on n'invente pas de taille. |
 | `border-width` | `--border-width-thin` 1, `--border-width-thick` 2 | `thin` pour les filets, `thick` pour les contours de contrôles et l'outline de secours du focus. |
 | `duration`, `easing` | `--duration-fast`, `--easing-standard` | Toute transition. Pas d'animation clignotante. |
 
@@ -64,12 +64,14 @@ Le point d'entrée unique des règles du design system : comment l'utiliser, le 
 
 ### Exceptions sans token
 
-Seules exceptions acceptées (LET-19, Q6), toujours commentées `/* exception DS : <raison> */` dans le code :
+Seules exceptions acceptées (LET-19, Q6 ; LET-14, P9), toujours commentées `/* exception DS : <raison> */` dans le code :
 
 - `1px` de la classe « visible uniquement aux lecteurs d'écran » (`.lo-sr`) ;
 - `420px` de `.lo-stack`, aide de mise en page des aperçus, pas un composant ;
 - interlettrage `-0.03em` du texte du logo (il fait partie de la marque, comme ses SVG) ;
-- décalages optiques d'icônes (1, 3 et -6 px dans les aides de champ et les bandeaux), à supprimer si un alignement CSS suffit.
+- décalages optiques d'icônes (1, 3 et -6 px dans les aides de champ et les bandeaux), à supprimer si un alignement CSS suffit ;
+- tailles du `Logo` et du `Wordmark` (taille par défaut 40 ou 64, version plate à 32 px et moins, texte du lockup à 60 % du symbole, `WORDMARK_SIZES`) : constantes de la marque, comme ses SVG ;
+- hauteurs et largeurs de `Skeleton` et `SkeletonBookmark` (barres de 10, 12 et 14 px, largeur 72) : elles imitent des lignes de texte.
 
 ## 3. Composants
 

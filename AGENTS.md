@@ -55,7 +55,7 @@ Risk: low | high        ← recopie le label Linear risk:low / risk:high ; en ca
 - … (ou "aucun")
 ```
 
-`Risk: low` déclenche l'auto-merge si la CI est verte. Ne l'écris jamais si la PR touche auth, paiement, données utilisateur, migrations, infra ou dépendances.
+`Risk: low` déclenchera l'auto-merge si la CI est verte, une fois le workflow d'auto-merge en place (pas encore actif : LET-7) ; d'ici là, Mathéo merge. Ne l'écris jamais si la PR touche auth, paiement, données utilisateur, migrations, infra ou dépendances.
 
 ## Protocole "Needs approval"
 

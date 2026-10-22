@@ -1,38 +1,31 @@
-# Review automatique par agent + boucle de correction (max 2 tours).
+# Review par agent, à la demande (pour économiser les crédits Anthropic).
 #
-# 1. Un agent relit la PR (spec Linear, AGENTS.md, tests, sécurité) et poste ses commentaires.
-# 2. S'il trouve des problèmes BLOQUANTS et qu'il reste des tours : un agent corrige,
-#    commit "[agent-fix] ..." et pousse -> la CI et cette review repartent sur le nouveau commit.
-# 3. Après 2 tours encore bloquants : label needs-human-review, le check échoue -> pas d'auto-merge.
+# Déclenchement : ajouter le label "agent-review" sur une PR (gh pr edit <n> --add-label agent-review).
+# Un agent (Sonnet) relit la PR (spec Linear, AGENTS.md, CLAUDE.md, tests, sécurité, design system),
+# poste ses commentaires et un verdict. Le label est retiré à la fin : le remettre relance une review.
+# Le check n'est pas obligatoire ; les corrections se font à la main ou par l'agent qui porte la PR.
 #
-# Prérequis :
-#   - Installer l'app GitHub Claude sur le repo (pour que ses pushes relancent la CI).
-#   - Secret ANTHROPIC_API_KEY. Sans lui, le job passe sans relire (avertissement dans le run) :
-#     ne rends pas ce check obligatoire et n'active pas l'auto-merge tant que le secret manque.
-#   - Rendre le check "agent-review / review" obligatoire dans le ruleset de main.
+# Prérequis : secret ANTHROPIC_API_KEY (sans lui, le job passe sans relire, avec un avertissement).
 
 name: agent-review
 
 on:
   pull_request:
-    types: [opened, synchronize, ready_for_review, reopened]
+    types: [labeled]
 
 concurrency:
   group: agent-review-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
   issues: write
   id-token: write
 
-env:
-  MAX_FIX_ROUNDS: 2
-
 jobs:
   review:
-    if: github.event.pull_request.draft == false
+    if: github.event.label.name == 'agent-review'
     runs-on: ubuntu-latest
     steps:
       - name: Vérifier la clé API
@@ -53,16 +46,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Compter les tours de correction déjà faits
-        if: steps.key.outputs.enabled == 'true'
-        id: rounds
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          n=$(gh pr view ${{ github.event.pull_request.number }} --json commits \
-              --jq '[.commits[].messageHeadline | select(contains("[agent-fix]"))] | length')
-          echo "done=$n" >> "$GITHUB_OUTPUT"
-
       - name: Review par agent
         if: steps.key.outputs.enabled == 'true'
         uses: anthropics/claude-code-action@v1
@@ -76,7 +59,7 @@ jobs:
                  (un test qui échouerait si la fonctionnalité cassait, pas un test décoratif).
               2. Bugs, cas limites non gérés, régressions probables.
               3. Sécurité (données utilisateur, injection, secrets, droits).
-              4. Respect du scope et des patterns existants.
+              4. Respect du scope et des patterns existants (dont « API et données (D-45) » dans AGENTS.md).
               5. Design system (seulement si la PR touche l'UI) : règles de packages/design-system/CONVENTIONS.md (dont R1 à R10),
                  composants du DS plutôt que des composants ad hoc, tokens au lieu de valeurs en dur
                  (couleurs, espacements, typo), pas de doublon d'un composant existant.
@@ -87,38 +70,24 @@ jobs:
             Termine en écrivant le fichier review-verdict.txt contenant exactement BLOCKING ou OK,
             puis un résumé de 3 lignes max en commentaire de PR.
           claude_args: |
+            --model claude-sonnet-5-5
             --max-turns 15
             --allowedTools "Read,Grep,Glob,Write(review-verdict.txt),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr comment:*),mcp__github_inline_comment__create_inline_comment"
 
       - name: Lire le verdict
-        if: steps.key.outputs.enabled == 'true'
         id: verdict
+        if: steps.key.outputs.enabled == 'true'
         run: |
           v=$(cat review-verdict.txt 2>/dev/null | tr -d '[:space:]' || echo BLOCKING)
           [ "$v" = "OK" ] || v=BLOCKING
           echo "value=$v" >> "$GITHUB_OUTPUT"
           rm -f review-verdict.txt
 
-      - name: Correction automatique
-        if: steps.verdict.outputs.value == 'BLOCKING' && fromJSON(steps.rounds.outputs.done) < fromJSON(env.MAX_FIX_ROUNDS)
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: |
-            Corrige tous les commentaires [BLOQUANT] de la dernière review sur la PR #${{ github.event.pull_request.number }}.
-            Respecte AGENTS.md. Ne change rien hors de ces points. Lance les tests et le lint.
-            Si un point demande une décision produit, ne le corrige pas : commente "@Mathéo décision nécessaire" avec options A/B.
-            Commit avec un message commençant par "[agent-fix]" et pousse sur la branche de la PR.
-          claude_args: |
-            --max-turns 30
-
-      - name: Escalade humaine après les tours de correction
-        if: steps.verdict.outputs.value == 'BLOCKING' && fromJSON(steps.rounds.outputs.done) >= fromJSON(env.MAX_FIX_ROUNDS)
+      - name: Retirer le label (le remettre relance une review)
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr edit ${{ github.event.pull_request.number }} --add-label needs-human-review
-          gh pr comment ${{ github.event.pull_request.number }} --body "Review agent : toujours bloquant après ${{ env.MAX_FIX_ROUNDS }} tours de correction. Relecture humaine requise."
+        run: gh pr edit ${{ github.event.pull_request.number }} -R ${{ github.repository }} --remove-label agent-review || true
 
       - name: Statut du check
         if: steps.verdict.outputs.value == 'BLOCKING'

@@ -68,6 +68,8 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Temporaire (2026-10-22) : diagnostic de l'échec immédiat de la review. À retirer.
+          show_full_output: true
           prompt: |
             Tu es relecteur de code pour LetterOn. Relis la PR #${{ github.event.pull_request.number }}.
             Référentiel : AGENTS.md et CLAUDE.md, la description de PR (issue Linear liée, critères d'acceptation).

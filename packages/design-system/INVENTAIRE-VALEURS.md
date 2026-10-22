@@ -54,12 +54,12 @@ Généré en lisant les 174 déclarations qui contiennent une valeur en dur (180
 | Taille | `16px` | 2 | 🆕 Q4 | `size.icon.sm` 16 | `.lo-chip-icon` |
 | Taille | `18px` | 4 | 🆕 Q4 | `size.icon.md` 18 (défaut d'Icon) | `.lo-btn-icon` `.lo-menu-check` |
 | Taille | `24px` | 4 | 🆕 Q4 | `size.control.xs` 24 | `.lo-badge` `.lo-chip-x` `.lo-kbd` |
-| Taille | `28px` | 2 | 🆕 Q4 | `size.icon.lg` 28 | `.lo-toast-icon` |
-| Taille | `32px` | 5 | 🆕 Q4 | `size.control.sm` 32 | `.lo-btn-sm` `.lo-avatar-sm` `.lo-alert-icon` |
+| Taille | `28px` | 2 | 🆕 Q4 | `size.icon-badge.sm` 28 (renommé, LET-14, P4) | `.lo-toast-icon` |
+| Taille | `32px` | 5 | 🆕 Q4 | `size.control.sm` 32 ; **`.lo-btn-sm` → `size.control.md` 36** (LET-14, P3) | `.lo-btn-sm` `.lo-avatar-sm` `.lo-alert-icon` |
 | Taille | `36px` | 5 | 🆕 Q4 | `size.control.md` 36 | `.lo-iconbtn-sm` `.lo-chip` `.lo-seg-btn` |
 | Taille | `40px` | 1 | 🆕 Q4 | `size.control.lg` (44, +4 px) — navigation | `.lo-nav-item` |
 | Taille | `44px` | 7 | 🆕 Q4 | `size.control.lg` 44 (cible tactile) | `.lo-btn-md` `.lo-iconbtn-md` `.lo-search` `.lo-avatar-md` `.lo-menu-item` |
-| Taille | `48px` | 2 | 🆕 Q4 | `size.icon.xl` 48 | `.lo-dialog-icon` |
+| Taille | `48px` | 2 | 🆕 Q4 | `size.icon-badge.md` 48 (renommé, LET-14, P4) | `.lo-dialog-icon` |
 | Taille | `64px` | 3 | 🆕 Q4 | `size.media.sm` 64 (avatar lg, vignette) | `.lo-avatar-lg` `.lo-bm-list` |
 | Taille | `72px` | 2 | 🆕 Q4 | `size.illustration.md` 72 | `.lo-empty-md` |
 | Taille | `96px` | 2 | 🆕 Q4 | `size.media.md` 96 (vignette, textarea) | `textarea.lo-field-control` `.lo-bm-list` |
@@ -67,3 +67,13 @@ Généré en lisant les 174 déclarations qui contiennent une valeur en dur (180
 | Taille | `220px` | 1 | 🆕 Q4 | `size.width.menu` 220 | `.lo-menu` |
 | Taille | `420px` | 1 | ⚖️ Q6 | `.lo-stack` : aide de mise en page des aperçus, pas un composant | `.lo-stack` |
 | Taille | `480px` | 2 | 🆕 Q4 | `size.width.dialog` 480 | `.lo-dialog` `.lo-empty` |
+
+## Valeurs dans `bundle.js` (hors de l'inventaire ci-dessus)
+
+L'inventaire de LET-19 ne lisait que `bundle.css`. `bundle.js` passe aussi des tailles en dur (relevé du 2026-10-11, LET-14) : décisions de Mathéo du 2026-10-22 (LET-14, P4 et P9, recommandation A).
+
+| Où | Valeurs | Décision |
+| --- | --- | --- |
+| Taille des icônes (`Icon size`) | 14 (TypeTag, aide de champ), 16 (puce, chevron, petit IconButton, toast), 18 (défaut, boutons, navigation, menu, bandeau, recherche), 20 (IconButton md), 24 (modale, vignette en liste), 28 (EmptyState md), 36 (vignette en grille), 40 (EmptyState lg) | 🆕 P4 : échelle `size.icon.*` = `xs` 14, `sm` 16, `md` 18, `lg` 20, `xl` 24, `2xl` 28, `3xl` 36, `4xl` 40. Les pastilles du toast et de la modale (28 et 48, `size.icon.lg` et `xl` dans LET-19) deviennent `size.icon-badge.sm` et `md` |
+| Logo | taille par défaut 40 (lockup) ou 64, version plate à 32 et moins, texte du lockup à 60 % du symbole, `WORDMARK_SIZES` | ⚖️ P9 : exception, constantes de la marque comme ses SVG |
+| Skeleton, SkeletonBookmark | hauteur par défaut 12 ; barres de 10 et 14, largeur 72 | ⚖️ P9 : exception, formes de chargement qui imitent des lignes de texte |

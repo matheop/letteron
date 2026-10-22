@@ -451,41 +451,79 @@
       }
     },
     "icon": {
-      "$description": "Taille des icônes (Icon dessine en currentColor sur une grille de 24).",
+      "$description": "Taille des icônes (Icon dessine en currentColor sur une grille de 24). Pour le disque coloré qui entoure une icône, voir size.icon-badge.",
       "xs": {
         "$value": {
           "value": 14,
           "unit": "px"
         },
-        "$description": "Icône de type dans TypeTag."
+        "$description": "Icône de type dans TypeTag, icône d’une aide de champ."
       },
       "sm": {
         "$value": {
           "value": 16,
           "unit": "px"
         },
-        "$description": "Icône dans une puce."
+        "$description": "Icône dans une puce, chevron, petit bouton-icône, toast."
       },
       "md": {
         "$value": {
           "value": 18,
           "unit": "px"
         },
-        "$description": "Taille par défaut d’Icon : boutons, menus."
+        "$description": "Taille par défaut d’Icon : boutons, navigation, menus, bandeaux, recherche."
       },
       "lg": {
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$description": "Icône d’un bouton-icône de taille normale."
+      },
+      "xl": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Icône de modale, icône d’une vignette en liste."
+      },
+      "2xl": {
         "$value": {
           "value": 28,
           "unit": "px"
         },
-        "$description": "Icône de toast."
+        "$description": "Icône d’un état vide de taille normale."
       },
-      "xl": {
+      "3xl": {
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        },
+        "$description": "Icône d’une vignette en grille."
+      },
+      "4xl": {
+        "$value": {
+          "value": 40,
+          "unit": "px"
+        },
+        "$description": "Icône d’un grand état vide."
+      }
+    },
+    "icon-badge": {
+      "$description": "Disque coloré qui porte une icône (toast, modale).",
+      "sm": {
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "$description": "Pastille d’icône d’un toast."
+      },
+      "md": {
         "$value": {
           "value": 48,
           "unit": "px"
         },
-        "$description": "Icône de modale."
+        "$description": "Pastille d’icône d’une modale."
       }
     },
     "media": {

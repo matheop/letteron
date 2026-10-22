@@ -1,0 +1,40 @@
+# CI de chaque PR et de main : tokens du design system, lint, typecheck, tests, build.
+# Check à rendre obligatoire dans le ruleset de main : "ci / checks".
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tokens du design system (génération et vérification)
+        run: |
+          npm run tokens
+          npm run check -w @letteron/design-system
+
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
